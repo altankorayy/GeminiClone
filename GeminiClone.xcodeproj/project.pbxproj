@@ -9,8 +9,7 @@
 /* Begin PBXBuildFile section */
 		E105EED22BEA9BB600A9257F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E105EED12BEA9BB600A9257F /* AppDelegate.swift */; };
 		E105EED42BEA9BB600A9257F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E105EED32BEA9BB600A9257F /* SceneDelegate.swift */; };
-		E105EED62BEA9BB600A9257F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E105EED52BEA9BB600A9257F /* ViewController.swift */; };
-		E105EED92BEA9BB600A9257F /* Base in Resources */ = {isa = PBXBuildFile; fileRef = E105EED82BEA9BB600A9257F /* Base */; };
+		E105EED62BEA9BB600A9257F /* ChatVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E105EED52BEA9BB600A9257F /* ChatVC.swift */; };
 		E105EEDB2BEA9BB800A9257F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E105EEDA2BEA9BB800A9257F /* Assets.xcassets */; };
 		E105EEDE2BEA9BB800A9257F /* Base in Resources */ = {isa = PBXBuildFile; fileRef = E105EEDD2BEA9BB800A9257F /* Base */; };
 		E105EEE92BEA9BB800A9257F /* GeminiCloneTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E105EEE82BEA9BB800A9257F /* GeminiCloneTests.swift */; };
@@ -39,8 +38,7 @@
 		E105EECE2BEA9BB600A9257F /* GeminiClone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GeminiClone.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E105EED12BEA9BB600A9257F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E105EED32BEA9BB600A9257F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		E105EED52BEA9BB600A9257F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		E105EED82BEA9BB600A9257F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		E105EED52BEA9BB600A9257F /* ChatVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatVC.swift; sourceTree = "<group>"; };
 		E105EEDA2BEA9BB800A9257F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E105EEDD2BEA9BB800A9257F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E105EEDF2BEA9BB800A9257F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -101,8 +99,7 @@
 			children = (
 				E105EED12BEA9BB600A9257F /* AppDelegate.swift */,
 				E105EED32BEA9BB600A9257F /* SceneDelegate.swift */,
-				E105EED52BEA9BB600A9257F /* ViewController.swift */,
-				E105EED72BEA9BB600A9257F /* Main.storyboard */,
+				E105EED52BEA9BB600A9257F /* ChatVC.swift */,
 				E105EEDA2BEA9BB800A9257F /* Assets.xcassets */,
 				E105EEDC2BEA9BB800A9257F /* LaunchScreen.storyboard */,
 				E105EEDF2BEA9BB800A9257F /* Info.plist */,
@@ -233,7 +230,6 @@
 			files = (
 				E105EEDB2BEA9BB800A9257F /* Assets.xcassets in Resources */,
 				E105EEDE2BEA9BB800A9257F /* Base in Resources */,
-				E105EED92BEA9BB600A9257F /* Base in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -258,7 +254,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E105EED62BEA9BB600A9257F /* ViewController.swift in Sources */,
+				E105EED62BEA9BB600A9257F /* ChatVC.swift in Sources */,
 				E105EED22BEA9BB600A9257F /* AppDelegate.swift in Sources */,
 				E105EED42BEA9BB600A9257F /* SceneDelegate.swift in Sources */,
 			);
@@ -297,14 +293,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		E105EED72BEA9BB600A9257F /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				E105EED82BEA9BB600A9257F /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		E105EEDC2BEA9BB800A9257F /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -447,7 +435,6 @@
 				INFOPLIST_FILE = GeminiClone/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -475,7 +462,6 @@
 				INFOPLIST_FILE = GeminiClone/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
