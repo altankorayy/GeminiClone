@@ -15,6 +15,7 @@
 		E105EEE92BEA9BB800A9257F /* GeminiCloneTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E105EEE82BEA9BB800A9257F /* GeminiCloneTests.swift */; };
 		E105EEF32BEA9BB800A9257F /* GeminiCloneUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E105EEF22BEA9BB800A9257F /* GeminiCloneUITests.swift */; };
 		E105EEF52BEA9BB800A9257F /* GeminiCloneUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E105EEF42BEA9BB800A9257F /* GeminiCloneUITestsLaunchTests.swift */; };
+		E1A5CDD12BEBFF2D0030E31C /* ChatVCTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A5CDD02BEBFF2D0030E31C /* ChatVCTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +48,7 @@
 		E105EEEE2BEA9BB800A9257F /* GeminiCloneUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GeminiCloneUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E105EEF22BEA9BB800A9257F /* GeminiCloneUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeminiCloneUITests.swift; sourceTree = "<group>"; };
 		E105EEF42BEA9BB800A9257F /* GeminiCloneUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeminiCloneUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		E1A5CDD02BEBFF2D0030E31C /* ChatVCTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatVCTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,11 +99,11 @@
 		E105EED02BEA9BB600A9257F /* GeminiClone */ = {
 			isa = PBXGroup;
 			children = (
-				E105EED12BEA9BB600A9257F /* AppDelegate.swift */,
-				E105EED32BEA9BB600A9257F /* SceneDelegate.swift */,
-				E105EED52BEA9BB600A9257F /* ChatVC.swift */,
-				E105EEDA2BEA9BB800A9257F /* Assets.xcassets */,
-				E105EEDC2BEA9BB800A9257F /* LaunchScreen.storyboard */,
+				E1A5CDCD2BEBFEED0030E31C /* Resource */,
+				E1A5CDC92BEBFECD0030E31C /* Manager */,
+				E1A5CDCA2BEBFED70030E31C /* Model */,
+				E1A5CDCB2BEBFEDD0030E31C /* View */,
+				E1A5CDCC2BEBFEE40030E31C /* ViewModel */,
 				E105EEDF2BEA9BB800A9257F /* Info.plist */,
 			);
 			path = GeminiClone;
@@ -122,6 +124,63 @@
 				E105EEF42BEA9BB800A9257F /* GeminiCloneUITestsLaunchTests.swift */,
 			);
 			path = GeminiCloneUITests;
+			sourceTree = "<group>";
+		};
+		E1A5CDC92BEBFECD0030E31C /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Manager;
+			sourceTree = "<group>";
+		};
+		E1A5CDCA2BEBFED70030E31C /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		E1A5CDCB2BEBFEDD0030E31C /* View */ = {
+			isa = PBXGroup;
+			children = (
+				E1A5CDCE2BEBFF060030E31C /* Controllers */,
+				E1A5CDCF2BEBFF0C0030E31C /* Cells */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		E1A5CDCC2BEBFEE40030E31C /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		E1A5CDCD2BEBFEED0030E31C /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				E105EED12BEA9BB600A9257F /* AppDelegate.swift */,
+				E105EED32BEA9BB600A9257F /* SceneDelegate.swift */,
+				E105EEDA2BEA9BB800A9257F /* Assets.xcassets */,
+				E105EEDC2BEA9BB800A9257F /* LaunchScreen.storyboard */,
+			);
+			path = Resource;
+			sourceTree = "<group>";
+		};
+		E1A5CDCE2BEBFF060030E31C /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				E105EED52BEA9BB600A9257F /* ChatVC.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		E1A5CDCF2BEBFF0C0030E31C /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				E1A5CDD02BEBFF2D0030E31C /* ChatVCTableViewCell.swift */,
+			);
+			path = Cells;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -254,6 +313,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E1A5CDD12BEBFF2D0030E31C /* ChatVCTableViewCell.swift in Sources */,
 				E105EED62BEA9BB600A9257F /* ChatVC.swift in Sources */,
 				E105EED22BEA9BB600A9257F /* AppDelegate.swift in Sources */,
 				E105EED42BEA9BB600A9257F /* SceneDelegate.swift in Sources */,

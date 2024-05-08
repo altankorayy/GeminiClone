@@ -34,7 +34,9 @@ class ChatVC: UIViewController {
     private lazy var tableView: UITableView = {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.backgroundColor = .red
+        tableView.register(ChatVCTableViewCell.self, forCellReuseIdentifier: ChatVCTableViewCell.identifier)
+        tableView.delegate = self
+        tableView.dataSource = self
         return tableView
     }()
     
@@ -45,6 +47,13 @@ class ChatVC: UIViewController {
         
         configureView()
         configureConstraints()
+        configureNavigationBar()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        view.bringSubviewToFront(textView)
     }
     
     private func configureView() {
@@ -65,7 +74,7 @@ class ChatVC: UIViewController {
             tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: textView.topAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -65),
             
             placeHolder.centerYAnchor.constraint(equalTo: textView.centerYAnchor),
             placeHolder.leadingAnchor.constraint(equalTo: textView.leadingAnchor, constant: 15),
@@ -104,6 +113,18 @@ extension ChatVC: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
         placeHolder.isHidden = !textView.text.isEmpty
         adjustTextFieldHeight()
+    }
+}
+
+extension ChatVC: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 30
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: ChatVCTableViewCell.identifier, for: indexPath) as? ChatVCTableViewCell else { return UITableViewCell() }
+        
+        return cell
     }
 }
 
