@@ -40,6 +40,42 @@ class ChatVC: UIViewController {
         return tableView
     }()
     
+    private lazy var sentButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.tintColor = .label
+        button.setImage(UIImage(systemName: "paperplane"), for: .normal)
+        button.frame = CGRect(x: 0, y: 0, width: 50, height: 50)
+        return button
+    }()
+    
+    private lazy var cameraButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.tintColor = .label
+        button.setImage(UIImage(systemName: "camera"), for: .normal)
+        button.frame = CGRect(x: 0, y: 0, width: 50, height: 50)
+        return button
+    }()
+    
+    private lazy var photoButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.tintColor = .label
+        button.setImage(UIImage(systemName: "photo"), for: .normal)
+        button.frame = CGRect(x: 0, y: 0, width: 50, height: 50)
+        return button
+    }()
+    
+    private lazy var buttonsStackView: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [photoButton, cameraButton, sentButton])
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .horizontal
+        stackView.distribution = .equalSpacing
+        stackView.spacing = 15
+        return stackView
+    }()
+    
     var textViewHeightConstraint: NSLayoutConstraint!
 
     override func viewDidLoad() {
@@ -61,6 +97,7 @@ class ChatVC: UIViewController {
         view.addSubview(textView)
         view.addSubview(tableView)
         textView.addSubview(placeHolder)
+        //textView.addSubview(buttonsStackView)
     }
 
     private func configureConstraints() {
@@ -78,7 +115,9 @@ class ChatVC: UIViewController {
             
             placeHolder.centerYAnchor.constraint(equalTo: textView.centerYAnchor),
             placeHolder.leadingAnchor.constraint(equalTo: textView.leadingAnchor, constant: 15),
-            placeHolder.trailingAnchor.constraint(equalTo: textView.trailingAnchor, constant: -15)
+            placeHolder.trailingAnchor.constraint(equalTo: textView.trailingAnchor, constant: -15),
+            
+            // add stackView constraints
         ])
     }
     
@@ -106,13 +145,13 @@ class ChatVC: UIViewController {
             return size.height + 17
         }
     }
-
 }
 
 extension ChatVC: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
         placeHolder.isHidden = !textView.text.isEmpty
         adjustTextFieldHeight()
+        view.layoutIfNeeded()
     }
 }
 
