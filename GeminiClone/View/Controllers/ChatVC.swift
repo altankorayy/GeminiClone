@@ -77,6 +77,7 @@ class ChatVC: UIViewController {
     }()
     
     var textViewHeightConstraint: NSLayoutConstraint!
+    let welcomeView = WelcomeView()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -94,8 +95,7 @@ class ChatVC: UIViewController {
     
     private func configureView() {
         view.backgroundColor = .systemBackground
-        view.addSubview(textView)
-        view.addSubview(tableView)
+        view.addSubviews(textView, tableView, welcomeView)
         textView.addSubview(placeHolder)
         //textView.addSubview(buttonsStackView)
     }
@@ -116,6 +116,11 @@ class ChatVC: UIViewController {
             placeHolder.centerYAnchor.constraint(equalTo: textView.centerYAnchor),
             placeHolder.leadingAnchor.constraint(equalTo: textView.leadingAnchor, constant: 15),
             placeHolder.trailingAnchor.constraint(equalTo: textView.trailingAnchor, constant: -15),
+            
+            welcomeView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            welcomeView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            welcomeView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            welcomeView.bottomAnchor.constraint(equalTo: textView.topAnchor)
             
             // add stackView constraints
         ])

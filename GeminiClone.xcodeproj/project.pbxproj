@@ -16,6 +16,12 @@
 		E105EEF32BEA9BB800A9257F /* GeminiCloneUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E105EEF22BEA9BB800A9257F /* GeminiCloneUITests.swift */; };
 		E105EEF52BEA9BB800A9257F /* GeminiCloneUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E105EEF42BEA9BB800A9257F /* GeminiCloneUITestsLaunchTests.swift */; };
 		E1A5CDD12BEBFF2D0030E31C /* ChatVCTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A5CDD02BEBFF2D0030E31C /* ChatVCTableViewCell.swift */; };
+		E1F9E6542C0106350076D633 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F9E6532C0106350076D633 /* WelcomeView.swift */; };
+		E1F9E6592C010D000076D633 /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F9E6582C010D000076D633 /* UIImage+Extension.swift */; };
+		E1F9E65B2C010FF80076D633 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F9E65A2C010FF80076D633 /* UIView+Extension.swift */; };
+		E1F9E65D2C01127F0076D633 /* WelcomeViewCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F9E65C2C01127F0076D633 /* WelcomeViewCollectionViewCell.swift */; };
+		E1F9E65F2C0115BB0076D633 /* PromptModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F9E65E2C0115BB0076D633 /* PromptModel.swift */; };
+		E1F9E6612C0116000076D633 /* PromptManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F9E6602C0116000076D633 /* PromptManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +55,12 @@
 		E105EEF22BEA9BB800A9257F /* GeminiCloneUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeminiCloneUITests.swift; sourceTree = "<group>"; };
 		E105EEF42BEA9BB800A9257F /* GeminiCloneUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeminiCloneUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		E1A5CDD02BEBFF2D0030E31C /* ChatVCTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatVCTableViewCell.swift; sourceTree = "<group>"; };
+		E1F9E6532C0106350076D633 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
+		E1F9E6582C010D000076D633 /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
+		E1F9E65A2C010FF80076D633 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
+		E1F9E65C2C01127F0076D633 /* WelcomeViewCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewCollectionViewCell.swift; sourceTree = "<group>"; };
+		E1F9E65E2C0115BB0076D633 /* PromptModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromptModel.swift; sourceTree = "<group>"; };
+		E1F9E6602C0116000076D633 /* PromptManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromptManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +116,7 @@
 				E1A5CDCA2BEBFED70030E31C /* Model */,
 				E1A5CDCB2BEBFEDD0030E31C /* View */,
 				E1A5CDCC2BEBFEE40030E31C /* ViewModel */,
+				E1F9E6552C010CC30076D633 /* Resources */,
 				E105EEDF2BEA9BB800A9257F /* Info.plist */,
 			);
 			path = GeminiClone;
@@ -129,6 +142,7 @@
 		E1A5CDC92BEBFECD0030E31C /* Manager */ = {
 			isa = PBXGroup;
 			children = (
+				E1F9E6602C0116000076D633 /* PromptManager.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -136,6 +150,7 @@
 		E1A5CDCA2BEBFED70030E31C /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				E1F9E65E2C0115BB0076D633 /* PromptModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -143,6 +158,7 @@
 		E1A5CDCB2BEBFEDD0030E31C /* View */ = {
 			isa = PBXGroup;
 			children = (
+				E1F9E6502C01060A0076D633 /* Views */,
 				E1A5CDCE2BEBFF060030E31C /* Controllers */,
 				E1A5CDCF2BEBFF0C0030E31C /* Cells */,
 			);
@@ -179,8 +195,26 @@
 			isa = PBXGroup;
 			children = (
 				E1A5CDD02BEBFF2D0030E31C /* ChatVCTableViewCell.swift */,
+				E1F9E65C2C01127F0076D633 /* WelcomeViewCollectionViewCell.swift */,
 			);
 			path = Cells;
+			sourceTree = "<group>";
+		};
+		E1F9E6502C01060A0076D633 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				E1F9E6532C0106350076D633 /* WelcomeView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		E1F9E6552C010CC30076D633 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				E1F9E6582C010D000076D633 /* UIImage+Extension.swift */,
+				E1F9E65A2C010FF80076D633 /* UIView+Extension.swift */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -313,10 +347,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E1F9E6542C0106350076D633 /* WelcomeView.swift in Sources */,
+				E1F9E65B2C010FF80076D633 /* UIView+Extension.swift in Sources */,
 				E1A5CDD12BEBFF2D0030E31C /* ChatVCTableViewCell.swift in Sources */,
 				E105EED62BEA9BB600A9257F /* ChatVC.swift in Sources */,
+				E1F9E65F2C0115BB0076D633 /* PromptModel.swift in Sources */,
+				E1F9E65D2C01127F0076D633 /* WelcomeViewCollectionViewCell.swift in Sources */,
+				E1F9E6592C010D000076D633 /* UIImage+Extension.swift in Sources */,
 				E105EED22BEA9BB600A9257F /* AppDelegate.swift in Sources */,
 				E105EED42BEA9BB600A9257F /* SceneDelegate.swift in Sources */,
+				E1F9E6612C0116000076D633 /* PromptManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
