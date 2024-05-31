@@ -15,7 +15,7 @@ class ChatVC: UIViewController {
         textView.layer.masksToBounds = true
         textView.layer.cornerRadius = 25
         textView.backgroundColor = .secondarySystemBackground
-        textView.textContainerInset = UIEdgeInsets(top: 19, left: 10, bottom: 0, right: 10)
+        textView.textContainerInset = UIEdgeInsets(top: 19, left: 10, bottom: 0, right: 110)
         textView.isScrollEnabled = false
         textView.delegate = self
         textView.font = UIFont.systemFont(ofSize: 16, weight: .regular)
@@ -91,13 +91,18 @@ class ChatVC: UIViewController {
         super.viewDidLayoutSubviews()
         
         view.bringSubviewToFront(textView)
+        view.bringSubviewToFront(buttonsStackView)
     }
     
     private func configureView() {
         view.backgroundColor = .systemBackground
-        view.addSubviews(textView, tableView, welcomeView)
-        textView.addSubview(placeHolder)
-        //textView.addSubview(buttonsStackView)
+        view.addSubviews(textView, tableView, welcomeView, buttonsStackView)
+        textView.addSubviews(placeHolder)
+        
+        sentButton.addTarget(self, action: #selector(didTapSentButton), for: .touchUpInside)
+        photoButton.addTarget(self, action: #selector(didTapPhotoButton), for: .touchUpInside)
+        cameraButton.addTarget(self, action: #selector(didTapSentCameraButton), for: .touchUpInside)
+        
     }
 
     private func configureConstraints() {
@@ -115,15 +120,34 @@ class ChatVC: UIViewController {
             
             placeHolder.centerYAnchor.constraint(equalTo: textView.centerYAnchor),
             placeHolder.leadingAnchor.constraint(equalTo: textView.leadingAnchor, constant: 15),
-            placeHolder.trailingAnchor.constraint(equalTo: textView.trailingAnchor, constant: -15),
+            placeHolder.widthAnchor.constraint(equalToConstant: 170),
+            
+            buttonsStackView.bottomAnchor.constraint(equalTo: textView.bottomAnchor, constant: -15),
+            buttonsStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -25),
+            buttonsStackView.widthAnchor.constraint(equalToConstant: 100),
             
             welcomeView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             welcomeView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             welcomeView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             welcomeView.bottomAnchor.constraint(equalTo: textView.topAnchor)
-            
-            // add stackView constraints
         ])
+    }
+    
+    @objc
+    private func didTapSentButton() {
+        let isEmpty = textView.text.isEmpty
+        welcomeView.isHidden = !isEmpty
+        textView.resignFirstResponder()
+    }
+    
+    @objc
+    private func didTapPhotoButton() {
+        print("tapped")
+    }
+    
+    @objc
+    private func didTapSentCameraButton() {
+        print("tapped")
     }
     
     private func configureNavigationBar() {
