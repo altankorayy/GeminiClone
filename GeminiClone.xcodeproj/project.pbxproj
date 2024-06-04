@@ -19,6 +19,7 @@
 		E1472A1A2C0E4B6A006AABF8 /* GoogleGenerativeAI in Frameworks */ = {isa = PBXBuildFile; productRef = E1472A192C0E4B6A006AABF8 /* GoogleGenerativeAI */; };
 		E1472A1C2C0E4CA7006AABF8 /* GenerativeAI-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E1472A1B2C0E4CA7006AABF8 /* GenerativeAI-Info.plist */; };
 		E1472A1E2C0E4D2F006AABF8 /* APIKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1472A1D2C0E4D2F006AABF8 /* APIKey.swift */; };
+		E17C6FBB2C0F65F900456D9F /* ChatModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17C6FBA2C0F65F900456D9F /* ChatModel.swift */; };
 		E1A5CDD12BEBFF2D0030E31C /* ChatVCTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A5CDD02BEBFF2D0030E31C /* ChatVCTableViewCell.swift */; };
 		E1F9E6542C0106350076D633 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F9E6532C0106350076D633 /* WelcomeView.swift */; };
 		E1F9E6592C010D000076D633 /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F9E6582C010D000076D633 /* UIImage+Extension.swift */; };
@@ -61,6 +62,7 @@
 		E14501E42C0E68C700F2D8E3 /* ChatViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewModel.swift; sourceTree = "<group>"; };
 		E1472A1B2C0E4CA7006AABF8 /* GenerativeAI-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GenerativeAI-Info.plist"; sourceTree = "<group>"; };
 		E1472A1D2C0E4D2F006AABF8 /* APIKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKey.swift; sourceTree = "<group>"; };
+		E17C6FBA2C0F65F900456D9F /* ChatModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatModel.swift; sourceTree = "<group>"; };
 		E1A5CDD02BEBFF2D0030E31C /* ChatVCTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatVCTableViewCell.swift; sourceTree = "<group>"; };
 		E1F9E6532C0106350076D633 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
 		E1F9E6582C010D000076D633 /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
@@ -161,6 +163,7 @@
 			isa = PBXGroup;
 			children = (
 				E1F9E65E2C0115BB0076D633 /* PromptModel.swift */,
+				E17C6FBA2C0F65F900456D9F /* ChatModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -376,6 +379,7 @@
 				E105EED42BEA9BB600A9257F /* SceneDelegate.swift in Sources */,
 				E1472A1E2C0E4D2F006AABF8 /* APIKey.swift in Sources */,
 				E14501E52C0E68C700F2D8E3 /* ChatViewModel.swift in Sources */,
+				E17C6FBB2C0F65F900456D9F /* ChatModel.swift in Sources */,
 				E1F9E6612C0116000076D633 /* PromptManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

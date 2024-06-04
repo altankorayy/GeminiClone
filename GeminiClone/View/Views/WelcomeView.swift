@@ -8,7 +8,7 @@
 import UIKit
 
 protocol WelcomeViewDelegate: AnyObject {
-    func getSelectedPrompt(_ prompt: String)
+    func getSelectedPrompt(_ prompt: ChatMessage)
 }
 
 class WelcomeView: UIView {
@@ -112,6 +112,7 @@ extension WelcomeView: UICollectionViewDelegate, UICollectionViewDataSource {
         collectionView.deselectItem(at: indexPath, animated: true)
         
         let selectedPrompt = self.promptManager.getPrompts(at: indexPath.row)
-        delegate?.getSelectedPrompt(selectedPrompt.title)
+        let chatMessage = ChatMessage(message: selectedPrompt.title, participant: .user)
+        delegate?.getSelectedPrompt(chatMessage)
     }
 }

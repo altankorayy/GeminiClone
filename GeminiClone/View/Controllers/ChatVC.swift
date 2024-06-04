@@ -80,7 +80,7 @@ class ChatVC: UIViewController {
     var textViewHeightConstraint: NSLayoutConstraint!
     let welcomeView = WelcomeView()
     
-    private var models = [String]()
+    private var models = [ChatMessage]()
     
     private var viewModel: ChatViewModel
     
@@ -162,7 +162,8 @@ class ChatVC: UIViewController {
         textView.resignFirstResponder()
         textView.text = nil
         
-        self.models.append(text)
+        let chatMessage = ChatMessage(message: text, participant: .user)
+        self.models.append(chatMessage)
         reloadData()
         viewModel.sendMessage(text)
     }
@@ -225,26 +226,30 @@ extension ChatVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: ChatVCTableViewCell.identifier, for: indexPath) as? ChatVCTableViewCell else { return UITableViewCell() }
         var content = cell.defaultContentConfiguration()
-        content.text = models[indexPath.row]
+        content.text = models[indexPath.row].message
         content.textProperties.numberOfLines = 0
         cell.contentConfiguration = content
+        
+        if models[indexPath.row].participant == .system {
+            cell.backgroundColor = .secondarySystemBackground
+        }
         return cell
     }
 }
 
 extension ChatVC: ChatViewModelDelegate {
-    func getMessage(_ message: String) {
+    func getMessage(_ message: ChatMessage) {
         self.models.append(message)
         reloadData()
     }
 }
 
 extension ChatVC: WelcomeViewDelegate {
-    func getSelectedPrompt(_ prompt: String) {
+    func getSelectedPrompt(_ prompt: ChatMessage) {
         welcomeView.isHidden = true
         self.models.append(prompt)
         reloadData()
-        viewModel.sendMessage(prompt)
+        viewModel.sendMessage(prompt.message)
     }
 }
 

@@ -9,7 +9,7 @@ import Foundation
 import GoogleGenerativeAI
 
 protocol ChatViewModelDelegate: AnyObject {
-    func getMessage(_ message: String)
+    func getMessage(_ message: ChatMessage)
 }
 
 class ChatViewModel {
@@ -22,9 +22,10 @@ class ChatViewModel {
             do {
                 let response = try await model.generateContent(text)
                 guard let textResponse = response.text else { return }
-                delegate?.getMessage(textResponse)
+                let chatMessage = ChatMessage(message: textResponse, participant: .system)
+                delegate?.getMessage(chatMessage)
             } catch {
-                delegate?.getMessage(error.localizedDescription)
+                delegate?.getMessage(ChatMessage(message: error.localizedDescription, participant: .system))
             }
         }
     }
