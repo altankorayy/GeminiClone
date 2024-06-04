@@ -35,6 +35,7 @@ class ChatVC: UIViewController {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.register(ChatVCTableViewCell.self, forCellReuseIdentifier: ChatVCTableViewCell.identifier)
+        tableView.separatorStyle = .none
         tableView.delegate = self
         tableView.dataSource = self
         return tableView
@@ -78,7 +79,21 @@ class ChatVC: UIViewController {
     
     var textViewHeightConstraint: NSLayoutConstraint!
     let welcomeView = WelcomeView()
+    
+    private var models = [String]()
+    
+    private var viewModel: ChatViewModel
+    
+    init(viewModel: ChatViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+        viewModel.delegate = self
+    }
 
+    required init?(coder: NSCoder) {
+        fatalError()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -95,9 +110,15 @@ class ChatVC: UIViewController {
     }
     
     private func configureView() {
+        title = "Gemini"
         view.backgroundColor = .systemBackground
         view.addSubviews(textView, tableView, welcomeView, buttonsStackView)
         textView.addSubviews(placeHolder)
+        
+        let listButton = UIBarButtonItem(image: UIImage(systemName: "list.bullet"), style: .done, target: self, action: nil)
+        listButton.tintColor = .label
+        
+        navigationItem.leftBarButtonItem = listButton
         
         sentButton.addTarget(self, action: #selector(didTapSentButton), for: .touchUpInside)
         photoButton.addTarget(self, action: #selector(didTapPhotoButton), for: .touchUpInside)
@@ -135,9 +156,13 @@ class ChatVC: UIViewController {
     
     @objc
     private func didTapSentButton() {
-        let isEmpty = textView.text.isEmpty
-        welcomeView.isHidden = !isEmpty
+        guard let text = textView.text else { return }
+        welcomeView.isHidden = !text.isEmpty
         textView.resignFirstResponder()
+        textView.text = nil
+        
+        self.models.append(text)
+        viewModel.sendMessage(text)
     }
     
     @objc
@@ -186,13 +211,25 @@ extension ChatVC: UITextViewDelegate {
 
 extension ChatVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 30
+        return models.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: ChatVCTableViewCell.identifier, for: indexPath) as? ChatVCTableViewCell else { return UITableViewCell() }
-        
+        var content = cell.defaultContentConfiguration()
+        content.text = models[indexPath.row]
+        content.textProperties.numberOfLines = 0
+        cell.contentConfiguration = content
         return cell
+    }
+}
+
+extension ChatVC: ChatViewModelDelegate {
+    func getMessage(_ message: String) {
+        self.models.append(message)
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
     }
 }
 

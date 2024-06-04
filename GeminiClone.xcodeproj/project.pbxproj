@@ -15,6 +15,10 @@
 		E105EEE92BEA9BB800A9257F /* GeminiCloneTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E105EEE82BEA9BB800A9257F /* GeminiCloneTests.swift */; };
 		E105EEF32BEA9BB800A9257F /* GeminiCloneUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E105EEF22BEA9BB800A9257F /* GeminiCloneUITests.swift */; };
 		E105EEF52BEA9BB800A9257F /* GeminiCloneUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E105EEF42BEA9BB800A9257F /* GeminiCloneUITestsLaunchTests.swift */; };
+		E14501E52C0E68C700F2D8E3 /* ChatViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E14501E42C0E68C700F2D8E3 /* ChatViewModel.swift */; };
+		E1472A1A2C0E4B6A006AABF8 /* GoogleGenerativeAI in Frameworks */ = {isa = PBXBuildFile; productRef = E1472A192C0E4B6A006AABF8 /* GoogleGenerativeAI */; };
+		E1472A1C2C0E4CA7006AABF8 /* GenerativeAI-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E1472A1B2C0E4CA7006AABF8 /* GenerativeAI-Info.plist */; };
+		E1472A1E2C0E4D2F006AABF8 /* APIKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1472A1D2C0E4D2F006AABF8 /* APIKey.swift */; };
 		E1A5CDD12BEBFF2D0030E31C /* ChatVCTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A5CDD02BEBFF2D0030E31C /* ChatVCTableViewCell.swift */; };
 		E1F9E6542C0106350076D633 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F9E6532C0106350076D633 /* WelcomeView.swift */; };
 		E1F9E6592C010D000076D633 /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F9E6582C010D000076D633 /* UIImage+Extension.swift */; };
@@ -54,6 +58,9 @@
 		E105EEEE2BEA9BB800A9257F /* GeminiCloneUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GeminiCloneUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E105EEF22BEA9BB800A9257F /* GeminiCloneUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeminiCloneUITests.swift; sourceTree = "<group>"; };
 		E105EEF42BEA9BB800A9257F /* GeminiCloneUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeminiCloneUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		E14501E42C0E68C700F2D8E3 /* ChatViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewModel.swift; sourceTree = "<group>"; };
+		E1472A1B2C0E4CA7006AABF8 /* GenerativeAI-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GenerativeAI-Info.plist"; sourceTree = "<group>"; };
+		E1472A1D2C0E4D2F006AABF8 /* APIKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKey.swift; sourceTree = "<group>"; };
 		E1A5CDD02BEBFF2D0030E31C /* ChatVCTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatVCTableViewCell.swift; sourceTree = "<group>"; };
 		E1F9E6532C0106350076D633 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
 		E1F9E6582C010D000076D633 /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
@@ -68,6 +75,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E1472A1A2C0E4B6A006AABF8 /* GoogleGenerativeAI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -111,13 +119,14 @@
 		E105EED02BEA9BB600A9257F /* GeminiClone */ = {
 			isa = PBXGroup;
 			children = (
-				E1A5CDCD2BEBFEED0030E31C /* Resource */,
+				E1A5CDCD2BEBFEED0030E31C /* Delegates */,
 				E1A5CDC92BEBFECD0030E31C /* Manager */,
 				E1A5CDCA2BEBFED70030E31C /* Model */,
 				E1A5CDCB2BEBFEDD0030E31C /* View */,
 				E1A5CDCC2BEBFEE40030E31C /* ViewModel */,
 				E1F9E6552C010CC30076D633 /* Resources */,
 				E105EEDF2BEA9BB800A9257F /* Info.plist */,
+				E1472A1B2C0E4CA7006AABF8 /* GenerativeAI-Info.plist */,
 			);
 			path = GeminiClone;
 			sourceTree = "<group>";
@@ -143,6 +152,7 @@
 			isa = PBXGroup;
 			children = (
 				E1F9E6602C0116000076D633 /* PromptManager.swift */,
+				E1472A1D2C0E4D2F006AABF8 /* APIKey.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -168,11 +178,12 @@
 		E1A5CDCC2BEBFEE40030E31C /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				E14501E42C0E68C700F2D8E3 /* ChatViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
-		E1A5CDCD2BEBFEED0030E31C /* Resource */ = {
+		E1A5CDCD2BEBFEED0030E31C /* Delegates */ = {
 			isa = PBXGroup;
 			children = (
 				E105EED12BEA9BB600A9257F /* AppDelegate.swift */,
@@ -180,7 +191,7 @@
 				E105EEDA2BEA9BB800A9257F /* Assets.xcassets */,
 				E105EEDC2BEA9BB800A9257F /* LaunchScreen.storyboard */,
 			);
-			path = Resource;
+			path = Delegates;
 			sourceTree = "<group>";
 		};
 		E1A5CDCE2BEBFF060030E31C /* Controllers */ = {
@@ -233,6 +244,9 @@
 			dependencies = (
 			);
 			name = GeminiClone;
+			packageProductDependencies = (
+				E1472A192C0E4B6A006AABF8 /* GoogleGenerativeAI */,
+			);
 			productName = GeminiClone;
 			productReference = E105EECE2BEA9BB600A9257F /* GeminiClone.app */;
 			productType = "com.apple.product-type.application";
@@ -305,6 +319,9 @@
 				Base,
 			);
 			mainGroup = E105EEC52BEA9BB600A9257F;
+			packageReferences = (
+				E1472A182C0E4B6A006AABF8 /* XCRemoteSwiftPackageReference "generative-ai-swift" */,
+			);
 			productRefGroup = E105EECF2BEA9BB600A9257F /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -323,6 +340,7 @@
 			files = (
 				E105EEDB2BEA9BB800A9257F /* Assets.xcassets in Resources */,
 				E105EEDE2BEA9BB800A9257F /* Base in Resources */,
+				E1472A1C2C0E4CA7006AABF8 /* GenerativeAI-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -356,6 +374,8 @@
 				E1F9E6592C010D000076D633 /* UIImage+Extension.swift in Sources */,
 				E105EED22BEA9BB600A9257F /* AppDelegate.swift in Sources */,
 				E105EED42BEA9BB600A9257F /* SceneDelegate.swift in Sources */,
+				E1472A1E2C0E4D2F006AABF8 /* APIKey.swift in Sources */,
+				E14501E52C0E68C700F2D8E3 /* ChatViewModel.swift in Sources */,
 				E1F9E6612C0116000076D633 /* PromptManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -693,6 +713,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		E1472A182C0E4B6A006AABF8 /* XCRemoteSwiftPackageReference "generative-ai-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/google/generative-ai-swift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.5.4;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		E1472A192C0E4B6A006AABF8 /* GoogleGenerativeAI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E1472A182C0E4B6A006AABF8 /* XCRemoteSwiftPackageReference "generative-ai-swift" */;
+			productName = GoogleGenerativeAI;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = E105EEC62BEA9BB600A9257F /* Project object */;
 }
