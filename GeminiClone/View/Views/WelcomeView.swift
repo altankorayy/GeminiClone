@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol WelcomeViewDelegate: AnyObject {
+    func getSelectedPrompt(_ prompt: String)
+}
+
 class WelcomeView: UIView {
 
     private lazy var titleLabel: UILabel = {
@@ -43,6 +47,8 @@ class WelcomeView: UIView {
         collectionView.dataSource = self
         return collectionView
     }()
+    
+    weak var delegate: WelcomeViewDelegate?
     
     private let promptManager = PromptManager.shared
     
@@ -104,5 +110,8 @@ extension WelcomeView: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
+        
+        let selectedPrompt = self.promptManager.getPrompts(at: indexPath.row)
+        delegate?.getSelectedPrompt(selectedPrompt.title)
     }
 }

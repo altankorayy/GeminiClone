@@ -88,6 +88,7 @@ class ChatVC: UIViewController {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
         viewModel.delegate = self
+        welcomeView.delegate = self
     }
 
     required init?(coder: NSCoder) {
@@ -162,7 +163,14 @@ class ChatVC: UIViewController {
         textView.text = nil
         
         self.models.append(text)
+        reloadData()
         viewModel.sendMessage(text)
+    }
+    
+    private func reloadData() {
+        DispatchQueue.main.async { [weak self] in
+            self?.tableView.reloadData()
+        }
     }
     
     @objc
@@ -227,9 +235,16 @@ extension ChatVC: UITableViewDelegate, UITableViewDataSource {
 extension ChatVC: ChatViewModelDelegate {
     func getMessage(_ message: String) {
         self.models.append(message)
-        DispatchQueue.main.async {
-            self.tableView.reloadData()
-        }
+        reloadData()
+    }
+}
+
+extension ChatVC: WelcomeViewDelegate {
+    func getSelectedPrompt(_ prompt: String) {
+        welcomeView.isHidden = true
+        self.models.append(prompt)
+        reloadData()
+        viewModel.sendMessage(prompt)
     }
 }
 
