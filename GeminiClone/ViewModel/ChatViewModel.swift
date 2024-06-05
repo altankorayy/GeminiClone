@@ -22,6 +22,7 @@ class ChatViewModel {
             do {
                 let response = try await model.generateContent(text)
                 guard let textResponse = response.text else { return }
+                print(textResponse)
                 let chatMessage = ChatMessage(message: textResponse, participant: .system)
                 delegate?.getMessage(chatMessage)
             } catch {

@@ -36,6 +36,7 @@ class ChatVC: UIViewController {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.register(ChatVCTableViewCell.self, forCellReuseIdentifier: ChatVCTableViewCell.identifier)
         tableView.separatorStyle = .none
+        tableView.showsVerticalScrollIndicator = false
         tableView.delegate = self
         tableView.dataSource = self
         return tableView
@@ -138,7 +139,7 @@ class ChatVC: UIViewController {
             tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -65),
+            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -70),
             
             placeHolder.centerYAnchor.constraint(equalTo: textView.centerYAnchor),
             placeHolder.leadingAnchor.constraint(equalTo: textView.leadingAnchor, constant: 15),
@@ -157,7 +158,7 @@ class ChatVC: UIViewController {
     
     @objc
     private func didTapSentButton() {
-        guard let text = textView.text else { return }
+        guard let text = textView.text, !text.isEmpty else { return }
         welcomeView.isHidden = !text.isEmpty
         textView.resignFirstResponder()
         textView.text = nil
@@ -225,14 +226,11 @@ extension ChatVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: ChatVCTableViewCell.identifier, for: indexPath) as? ChatVCTableViewCell else { return UITableViewCell() }
-        var content = cell.defaultContentConfiguration()
-        content.text = models[indexPath.row].message
-        content.textProperties.numberOfLines = 0
-        cell.contentConfiguration = content
         
         if models[indexPath.row].participant == .system {
             cell.backgroundColor = .secondarySystemBackground
         }
+        cell.configure(models[indexPath.row])
         return cell
     }
 }
