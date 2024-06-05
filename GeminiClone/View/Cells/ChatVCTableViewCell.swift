@@ -56,7 +56,7 @@ class ChatVCTableViewCell: UITableViewCell {
             messageLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20),
             messageLabel.leadingAnchor.constraint(equalTo: profileImageView.trailingAnchor, constant: 8),
             messageLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
-            messageLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -25)
+            messageLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20)
         ])
     }
     

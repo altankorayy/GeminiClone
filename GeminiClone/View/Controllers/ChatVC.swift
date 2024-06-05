@@ -163,9 +163,6 @@ class ChatVC: UIViewController {
         textView.resignFirstResponder()
         textView.text = nil
         
-        let chatMessage = ChatMessage(message: text, participant: .user)
-        self.models.append(chatMessage)
-        reloadData()
         viewModel.sendMessage(text)
     }
     
@@ -226,11 +223,18 @@ extension ChatVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: ChatVCTableViewCell.identifier, for: indexPath) as? ChatVCTableViewCell else { return UITableViewCell() }
+        let model = models[indexPath.row]
         
-        if models[indexPath.row].participant == .system {
+        if model.participant == .system {
             cell.backgroundColor = .secondarySystemBackground
         }
-        cell.configure(models[indexPath.row])
+        
+        if model.pending {
+            cell.configure(ChatMessage(message: "Analiz ediliyor...", participant: .system))
+        } else {
+            cell.configure(models[indexPath.row])
+        }
+        
         return cell
     }
 }
@@ -240,12 +244,17 @@ extension ChatVC: ChatViewModelDelegate {
         self.models.append(message)
         reloadData()
     }
+    
+    func updateLastMessage(_ message: ChatMessage) {
+        guard !self.models.isEmpty else { return }
+        self.models[self.models.count - 1] = message
+        reloadData()
+    }
 }
 
 extension ChatVC: WelcomeViewDelegate {
     func getSelectedPrompt(_ prompt: ChatMessage) {
         welcomeView.isHidden = true
-        self.models.append(prompt)
         reloadData()
         viewModel.sendMessage(prompt.message)
     }

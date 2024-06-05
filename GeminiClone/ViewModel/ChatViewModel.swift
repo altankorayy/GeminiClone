@@ -10,6 +10,7 @@ import GoogleGenerativeAI
 
 protocol ChatViewModelDelegate: AnyObject {
     func getMessage(_ message: ChatMessage)
+    func updateLastMessage(_ message: ChatMessage)
 }
 
 class ChatViewModel {
@@ -18,15 +19,18 @@ class ChatViewModel {
     private let model = GenerativeModel(name: "gemini-1.5-flash-latest", apiKey: APIKey.default)
     
     func sendMessage(_ text: String) {
+        let userMessage = ChatMessage(message: text, participant: .user)
+        delegate?.getMessage(userMessage)
+        
+        let pendingMessage = ChatMessage(message: "", participant: .system, pending: true)
+        delegate?.getMessage(pendingMessage)
         Task {
             do {
                 let response = try await model.generateContent(text)
                 guard let textResponse = response.text else { return }
-                print(textResponse)
-                let chatMessage = ChatMessage(message: textResponse, participant: .system)
-                delegate?.getMessage(chatMessage)
+                delegate?.updateLastMessage(ChatMessage(message: textResponse, participant: .system))
             } catch {
-                delegate?.getMessage(ChatMessage(message: error.localizedDescription, participant: .system))
+                delegate?.updateLastMessage(ChatMessage(message: error.localizedDescription, participant: .system))
             }
         }
     }

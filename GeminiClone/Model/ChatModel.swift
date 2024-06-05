@@ -15,4 +15,5 @@ enum Participant {
 struct ChatMessage {
     var message: String
     let participant: Participant
+    var pending = false
 }
