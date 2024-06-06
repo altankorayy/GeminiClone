@@ -21,7 +21,7 @@ class ChatVCTableViewCell: UITableViewCell {
         return imageView
     }()
     
-    private lazy var messageLabel: UILabel = {
+    public lazy var messageLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 0
@@ -62,11 +62,11 @@ class ChatVCTableViewCell: UITableViewCell {
     
     public func configure(_ text: ChatMessage) {
         messageLabel.text = text.message
+        
         if text.participant == .user {
             profileImageView.image = UIImage(systemName: "person.circle.fill")
         } else {
             profileImageView.image = UIImage(named: "geminiLogo")
         }
     }
-
 }

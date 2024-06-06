@@ -169,7 +169,13 @@ class ChatVC: UIViewController {
     private func reloadData() {
         DispatchQueue.main.async { [weak self] in
             self?.tableView.reloadData()
+            self?.scrollToRow()
         }
+    }
+    
+    private func scrollToRow() {
+        let newIndexPath = IndexPath(row: self.models.count - 1, section: 0)
+        tableView.scrollToRow(at: newIndexPath, at: .top, animated: true)
     }
     
     @objc
@@ -227,12 +233,16 @@ extension ChatVC: UITableViewDelegate, UITableViewDataSource {
         
         if model.participant == .system {
             cell.backgroundColor = .secondarySystemBackground
+        } else {
+            cell.backgroundColor = .systemBackground
         }
         
-        if model.pending {
+        if model.pending && model.participant == .system {
             cell.configure(ChatMessage(message: "Analiz ediliyor...", participant: .system))
+            cell.messageLabel.startShimmering()
         } else {
             cell.configure(models[indexPath.row])
+            cell.messageLabel.stopShimmering()
         }
         
         return cell
