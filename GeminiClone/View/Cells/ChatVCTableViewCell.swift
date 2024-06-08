@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SwiftyMarkdown
 
 class ChatVCTableViewCell: UITableViewCell {
 
@@ -61,7 +62,8 @@ class ChatVCTableViewCell: UITableViewCell {
     }
     
     public func configure(_ text: ChatMessage) {
-        messageLabel.text = text.message
+        let markdownText = SwiftyMarkdown(string: text.message)
+        messageLabel.attributedText = markdownText.attributedString()
         
         if text.participant == .user {
             profileImageView.image = UIImage(systemName: "person.circle.fill")

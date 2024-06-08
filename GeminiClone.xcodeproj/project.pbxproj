@@ -21,6 +21,7 @@
 		E1472A1E2C0E4D2F006AABF8 /* APIKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1472A1D2C0E4D2F006AABF8 /* APIKey.swift */; };
 		E17C6FBB2C0F65F900456D9F /* ChatModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17C6FBA2C0F65F900456D9F /* ChatModel.swift */; };
 		E1A5CDD12BEBFF2D0030E31C /* ChatVCTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A5CDD02BEBFF2D0030E31C /* ChatVCTableViewCell.swift */; };
+		E1E3A1232C14D3C50093CCB3 /* SwiftyMarkdown in Frameworks */ = {isa = PBXBuildFile; productRef = E1E3A1222C14D3C50093CCB3 /* SwiftyMarkdown */; };
 		E1F9E6542C0106350076D633 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F9E6532C0106350076D633 /* WelcomeView.swift */; };
 		E1F9E6592C010D000076D633 /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F9E6582C010D000076D633 /* UIImage+Extension.swift */; };
 		E1F9E65B2C010FF80076D633 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F9E65A2C010FF80076D633 /* UIView+Extension.swift */; };
@@ -78,6 +79,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E1472A1A2C0E4B6A006AABF8 /* GoogleGenerativeAI in Frameworks */,
+				E1E3A1232C14D3C50093CCB3 /* SwiftyMarkdown in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -249,6 +251,7 @@
 			name = GeminiClone;
 			packageProductDependencies = (
 				E1472A192C0E4B6A006AABF8 /* GoogleGenerativeAI */,
+				E1E3A1222C14D3C50093CCB3 /* SwiftyMarkdown */,
 			);
 			productName = GeminiClone;
 			productReference = E105EECE2BEA9BB600A9257F /* GeminiClone.app */;
@@ -324,6 +327,7 @@
 			mainGroup = E105EEC52BEA9BB600A9257F;
 			packageReferences = (
 				E1472A182C0E4B6A006AABF8 /* XCRemoteSwiftPackageReference "generative-ai-swift" */,
+				E1E3A1212C14D3C50093CCB3 /* XCRemoteSwiftPackageReference "SwiftyMarkdown" */,
 			);
 			productRefGroup = E105EECF2BEA9BB600A9257F /* Products */;
 			projectDirPath = "";
@@ -727,6 +731,14 @@
 				minimumVersion = 0.5.4;
 			};
 		};
+		E1E3A1212C14D3C50093CCB3 /* XCRemoteSwiftPackageReference "SwiftyMarkdown" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SimonFairbairn/SwiftyMarkdown.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.2.4;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -734,6 +746,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = E1472A182C0E4B6A006AABF8 /* XCRemoteSwiftPackageReference "generative-ai-swift" */;
 			productName = GoogleGenerativeAI;
+		};
+		E1E3A1222C14D3C50093CCB3 /* SwiftyMarkdown */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E1E3A1212C14D3C50093CCB3 /* XCRemoteSwiftPackageReference "SwiftyMarkdown" */;
+			productName = SwiftyMarkdown;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

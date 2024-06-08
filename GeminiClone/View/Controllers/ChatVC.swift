@@ -163,6 +163,9 @@ class ChatVC: UIViewController {
         textView.resignFirstResponder()
         textView.text = nil
         
+        // recall function to update placeholder visibility
+        textViewDidChange(textView)
+        
         viewModel.sendMessage(text)
     }
     
@@ -232,7 +235,7 @@ extension ChatVC: UITableViewDelegate, UITableViewDataSource {
         let model = models[indexPath.row]
         
         if model.participant == .system {
-            cell.backgroundColor = .secondarySystemBackground
+            cell.backgroundColor = .secondarySystemFill
         } else {
             cell.backgroundColor = .systemBackground
         }
