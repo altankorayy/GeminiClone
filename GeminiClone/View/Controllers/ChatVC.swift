@@ -186,13 +186,17 @@ class ChatVC: UIViewController {
     
     @objc
     private func didTapPhotoButton() {
-        var pickerConfiguration = PHPickerConfiguration()
-        pickerConfiguration.selectionLimit = 1
-        pickerConfiguration.filter = .images
-        let picker = PHPickerViewController(configuration: pickerConfiguration)
-        picker.isEditing = true
-        picker.delegate = self
-        present(picker, animated: true)
+        if textView.text.isEmpty {
+            showAlert(title: "Error", message: "Please enter a prompt before selecting image.")
+        } else {
+            var pickerConfiguration = PHPickerConfiguration()
+            pickerConfiguration.selectionLimit = 1
+            pickerConfiguration.filter = .images
+            let picker = PHPickerViewController(configuration: pickerConfiguration)
+            picker.isEditing = true
+            picker.delegate = self
+            present(picker, animated: true)
+        }
     }
     
     @objc
