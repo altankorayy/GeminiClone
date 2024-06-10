@@ -265,7 +265,7 @@ extension ChatVC: UITableViewDelegate, UITableViewDataSource {
             cell.configure(ChatMessage(message: "Analiz ediliyor...", participant: .system))
             cell.messageLabel.startShimmering()
         } else {
-            cell.configure(messages[indexPath.row])
+            cell.configure(model)
             cell.messageLabel.stopShimmering()
         }
         
@@ -311,7 +311,12 @@ extension ChatVC: PHPickerViewControllerDelegate {
                 }
                 
                 DispatchQueue.main.async {
-                    let selectedImage = image as? UIImage
+                    guard let selectedImage = image as? UIImage else { return }
+                    self.welcomeView.isHidden = !self.textView.text.isEmpty
+                    self.viewModel.sendMessageWithImage(self.textView.text, image: selectedImage)
+                    self.textView.text = nil
+                    self.newChatButton?.isHidden = false
+                    self.textViewDidChange(self.textView)
                 }
             }
         }

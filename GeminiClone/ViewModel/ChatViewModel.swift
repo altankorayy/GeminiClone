@@ -5,7 +5,7 @@
 //  Created by Altan on 4.06.2024.
 //
 
-import Foundation
+import UIKit
 import GoogleGenerativeAI
 
 protocol ChatViewModelDelegate: AnyObject {
@@ -28,6 +28,24 @@ class ChatViewModel {
         Task {
             do {
                 let response = try await model.generateContent(text)
+                guard let textResponse = response.text else { return }
+                delegate?.updateLastMessage(ChatMessage(message: textResponse, participant: .system))
+            } catch {
+                delegate?.updateLastMessage(ChatMessage(message: error.localizedDescription, participant: .system))
+            }
+        }
+    }
+    
+    func sendMessageWithImage(_ text: String, image: UIImage) {
+        let userMessage = ChatMessage(message: text, image: image, participant: .user)
+        delegate?.getMessage(userMessage)
+        
+        let pendingMessage = ChatMessage(message: "", participant: .system, pending: true)
+        delegate?.getMessage(pendingMessage)
+        
+        Task {
+            do {
+                let response = try await model.generateContent(text, image)
                 guard let textResponse = response.text else { return }
                 delegate?.updateLastMessage(ChatMessage(message: textResponse, participant: .system))
             } catch {
