@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import PhotosUI
 
 class ChatVC: UIViewController {
     
@@ -131,7 +132,7 @@ class ChatVC: UIViewController {
         
         sentButton.addTarget(self, action: #selector(didTapSentButton), for: .touchUpInside)
         photoButton.addTarget(self, action: #selector(didTapPhotoButton), for: .touchUpInside)
-        cameraButton.addTarget(self, action: #selector(didTapSentCameraButton), for: .touchUpInside)
+        cameraButton.addTarget(self, action: #selector(didTapCameraButton), for: .touchUpInside)
     }
 
     private func configureConstraints() {
@@ -185,11 +186,17 @@ class ChatVC: UIViewController {
     
     @objc
     private func didTapPhotoButton() {
-        print("tapped")
+        var pickerConfiguration = PHPickerConfiguration()
+        pickerConfiguration.selectionLimit = 1
+        pickerConfiguration.filter = .images
+        let picker = PHPickerViewController(configuration: pickerConfiguration)
+        picker.isEditing = true
+        picker.delegate = self
+        present(picker, animated: true)
     }
     
     @objc
-    private func didTapSentCameraButton() {
+    private func didTapCameraButton() {
         print("tapped")
     }
     
@@ -288,3 +295,25 @@ extension ChatVC: WelcomeViewDelegate {
     }
 }
 
+extension ChatVC: PHPickerViewControllerDelegate {
+    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+        picker.dismiss(animated: true)
+        
+        guard let provider = results.first?.itemProvider else { return }
+        
+        if provider.canLoadObject(ofClass: UIImage.self) {
+            provider.loadObject(ofClass: UIImage.self) { [weak self] image, error in
+                guard let self else { return }
+                
+                guard let image = image, error == nil else {
+                    print("Failed to get image.")
+                    return
+                }
+                
+                DispatchQueue.main.async {
+                    let selectedImage = image as? UIImage
+                }
+            }
+        }
+    }
+}
