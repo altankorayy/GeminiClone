@@ -24,6 +24,7 @@ class ChatViewModel {
         
         let pendingMessage = ChatMessage(message: "", participant: .system, pending: true)
         delegate?.getMessage(pendingMessage)
+        
         Task {
             do {
                 let response = try await model.generateContent(text)

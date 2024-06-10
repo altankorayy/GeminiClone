@@ -78,10 +78,12 @@ class ChatVC: UIViewController {
         return stackView
     }()
     
+    var newChatButton: UIBarButtonItem?
+    
     var textViewHeightConstraint: NSLayoutConstraint!
     let welcomeView = WelcomeView()
     
-    private var models = [ChatMessage]()
+    private var messages = [ChatMessage]()
     
     private var viewModel: ChatViewModel
     
@@ -120,12 +122,16 @@ class ChatVC: UIViewController {
         let listButton = UIBarButtonItem(image: UIImage(systemName: "list.bullet"), style: .done, target: self, action: nil)
         listButton.tintColor = .label
         
+        newChatButton = UIBarButtonItem(image: UIImage(systemName: "square.and.pencil"), style: .done, target: self, action: #selector(didTapNewChatButton))
+        newChatButton?.tintColor = .label
+        newChatButton?.isHidden = true
+        
         navigationItem.leftBarButtonItem = listButton
+        navigationItem.rightBarButtonItem = newChatButton
         
         sentButton.addTarget(self, action: #selector(didTapSentButton), for: .touchUpInside)
         photoButton.addTarget(self, action: #selector(didTapPhotoButton), for: .touchUpInside)
         cameraButton.addTarget(self, action: #selector(didTapSentCameraButton), for: .touchUpInside)
-        
     }
 
     private func configureConstraints() {
@@ -167,18 +173,14 @@ class ChatVC: UIViewController {
         textViewDidChange(textView)
         
         viewModel.sendMessage(text)
+        newChatButton?.isHidden = false
     }
     
-    private func reloadData() {
-        DispatchQueue.main.async { [weak self] in
-            self?.tableView.reloadData()
-            self?.scrollToRow()
-        }
-    }
-    
-    private func scrollToRow() {
-        let newIndexPath = IndexPath(row: self.models.count - 1, section: 0)
-        tableView.scrollToRow(at: newIndexPath, at: .top, animated: true)
+    @objc
+    private func didTapNewChatButton() {
+        welcomeView.isHidden = false
+        messages.removeAll()
+        tableView.reloadData()
     }
     
     @objc
@@ -189,6 +191,18 @@ class ChatVC: UIViewController {
     @objc
     private func didTapSentCameraButton() {
         print("tapped")
+    }
+    
+    private func reloadData() {
+        DispatchQueue.main.async { [weak self] in
+            self?.tableView.reloadData()
+            self?.scrollToRow()
+        }
+    }
+    
+    private func scrollToRow() {
+        let newIndexPath = IndexPath(row: self.messages.count - 1, section: 0)
+        tableView.scrollToRow(at: newIndexPath, at: .top, animated: true)
     }
     
     private func configureNavigationBar() {
@@ -227,12 +241,12 @@ extension ChatVC: UITextViewDelegate {
 
 extension ChatVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return models.count
+        return messages.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: ChatVCTableViewCell.identifier, for: indexPath) as? ChatVCTableViewCell else { return UITableViewCell() }
-        let model = models[indexPath.row]
+        let model = messages[indexPath.row]
         
         if model.participant == .system {
             cell.backgroundColor = .secondarySystemFill
@@ -244,7 +258,7 @@ extension ChatVC: UITableViewDelegate, UITableViewDataSource {
             cell.configure(ChatMessage(message: "Analiz ediliyor...", participant: .system))
             cell.messageLabel.startShimmering()
         } else {
-            cell.configure(models[indexPath.row])
+            cell.configure(messages[indexPath.row])
             cell.messageLabel.stopShimmering()
         }
         
@@ -254,13 +268,13 @@ extension ChatVC: UITableViewDelegate, UITableViewDataSource {
 
 extension ChatVC: ChatViewModelDelegate {
     func getMessage(_ message: ChatMessage) {
-        self.models.append(message)
+        self.messages.append(message)
         reloadData()
     }
     
     func updateLastMessage(_ message: ChatMessage) {
-        guard !self.models.isEmpty else { return }
-        self.models[self.models.count - 1] = message
+        guard !self.messages.isEmpty else { return }
+        self.messages[self.messages.count - 1] = message
         reloadData()
     }
 }
@@ -270,6 +284,7 @@ extension ChatVC: WelcomeViewDelegate {
         welcomeView.isHidden = true
         reloadData()
         viewModel.sendMessage(prompt.message)
+        newChatButton?.isHidden = false
     }
 }
 
