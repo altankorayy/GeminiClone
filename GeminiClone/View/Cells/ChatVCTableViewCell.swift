@@ -22,12 +22,19 @@ class ChatVCTableViewCell: UITableViewCell {
         return imageView
     }()
     
+    private lazy var messageBackgroundView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = UIColor.systemBlue.withAlphaComponent(0.8)
+        view.layer.cornerRadius = 10
+        return view
+    }()
+    
     public lazy var messageLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 0
         label.font = UIFont.systemFont(ofSize: 17, weight: .regular)
-        label.textAlignment = .left
         return label
     }()
     
@@ -41,6 +48,7 @@ class ChatVCTableViewCell: UITableViewCell {
     }()
     
     private var contentImageViewHeightConstraint: NSLayoutConstraint!
+    private var messageBackgroundViewLeadingConstraint: NSLayoutConstraint!
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -55,11 +63,13 @@ class ChatVCTableViewCell: UITableViewCell {
     
     private func configureView() {
         selectionStyle = .none
-        contentView.addSubviews(profileImageView, messageLabel, contentImageView)
+        contentView.addSubviews(profileImageView, messageBackgroundView, contentImageView)
+        messageBackgroundView.addSubview(messageLabel)
     }
     
     private func configureConstraints() {
-        contentImageViewHeightConstraint = contentImageView.heightAnchor.constraint(equalToConstant: 0)
+        contentImageViewHeightConstraint = contentImageView.heightAnchor.constraint(equalToConstant: 200)
+        messageBackgroundViewLeadingConstraint = messageBackgroundView.leadingAnchor.constraint(equalTo: profileImageView.trailingAnchor, constant: 8)
         
         NSLayoutConstraint.activate([
             profileImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 15),
@@ -67,14 +77,19 @@ class ChatVCTableViewCell: UITableViewCell {
             profileImageView.widthAnchor.constraint(equalToConstant: 30),
             profileImageView.heightAnchor.constraint(equalToConstant: 30),
             
-            messageLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20),
-            messageLabel.leadingAnchor.constraint(equalTo: profileImageView.trailingAnchor, constant: 8),
-            messageLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
+            messageBackgroundView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
+            messageBackgroundViewLeadingConstraint,
+            messageBackgroundView.trailingAnchor.constraint(lessThanOrEqualTo: contentView.trailingAnchor, constant: -10),
             
-            contentImageView.topAnchor.constraint(equalTo: messageLabel.bottomAnchor, constant: 10),
-            contentImageView.leadingAnchor.constraint(equalTo: profileImageView.trailingAnchor, constant: 8),
+            messageLabel.topAnchor.constraint(equalTo: messageBackgroundView.topAnchor, constant: 10),
+            messageLabel.leadingAnchor.constraint(equalTo: messageBackgroundView.leadingAnchor, constant: 10),
+            messageLabel.trailingAnchor.constraint(equalTo: messageBackgroundView.trailingAnchor, constant: -10),
+            messageLabel.bottomAnchor.constraint(equalTo: messageBackgroundView.bottomAnchor, constant: -10),
+            
+            contentImageView.topAnchor.constraint(equalTo: messageBackgroundView.bottomAnchor, constant: 10),
+            contentImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 48),
             contentImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
-            contentImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20),
+            contentImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10),
             contentImageViewHeightConstraint
         ])
     }
@@ -84,9 +99,17 @@ class ChatVCTableViewCell: UITableViewCell {
         messageLabel.attributedText = markdownText.attributedString()
         
         if text.participant == .user {
-            profileImageView.image = UIImage(systemName: "person.circle.fill")
+            messageLabel.textAlignment = .right
+            profileImageView.isHidden = true
+            messageBackgroundViewLeadingConstraint.isActive = false
+            messageBackgroundView.backgroundColor = UIColor.systemBlue
+            messageLabel.textColor = .white
         } else {
+            messageLabel.textAlignment = .left
+            profileImageView.isHidden = false
             profileImageView.image = UIImage(named: "geminiLogo")
+            messageBackgroundViewLeadingConstraint.isActive = true
+            messageBackgroundView.backgroundColor = UIColor.secondarySystemBackground
         }
         
         if let image = text.image {
@@ -97,6 +120,7 @@ class ChatVCTableViewCell: UITableViewCell {
             contentImageView.isHidden = true
             contentImageViewHeightConstraint.constant = 0
         }
-        layoutIfNeeded()
+        contentView.layoutIfNeeded()
+        contentView.setNeedsLayout()
     }
 }

@@ -24,7 +24,7 @@ final class AlertVC: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .label
         label.numberOfLines = 0
-        label.font = UIFont.systemFont(ofSize: 15, weight: .regular)
+        label.font = UIFont.systemFont(ofSize: 18, weight: .regular)
         label.textAlignment = .center
         return label
     }()

@@ -15,6 +15,8 @@ class ChatVC: UIViewController {
         textView.translatesAutoresizingMaskIntoConstraints = false
         textView.layer.masksToBounds = true
         textView.layer.cornerRadius = 25
+        textView.layer.borderWidth = 1
+        textView.layer.borderColor = UIColor.secondarySystemFill.cgColor
         textView.backgroundColor = .secondarySystemBackground
         textView.textContainerInset = UIEdgeInsets(top: 19, left: 10, bottom: 0, right: 110)
         textView.isScrollEnabled = false
@@ -38,6 +40,8 @@ class ChatVC: UIViewController {
         tableView.register(ChatVCTableViewCell.self, forCellReuseIdentifier: ChatVCTableViewCell.identifier)
         tableView.separatorStyle = .none
         tableView.showsVerticalScrollIndicator = false
+        tableView.estimatedRowHeight = 200
+        tableView.rowHeight = UITableView.automaticDimension
         tableView.delegate = self
         tableView.dataSource = self
         return tableView
@@ -259,12 +263,6 @@ extension ChatVC: UITableViewDelegate, UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: ChatVCTableViewCell.identifier, for: indexPath) as? ChatVCTableViewCell else { return UITableViewCell() }
         let model = messages[indexPath.row]
         
-        if model.participant == .system {
-            cell.backgroundColor = .secondarySystemFill
-        } else {
-            cell.backgroundColor = .systemBackground
-        }
-        
         if model.pending && model.participant == .system {
             cell.configure(ChatMessage(message: "Analiz ediliyor...", participant: .system))
             cell.messageLabel.startShimmering()
@@ -318,6 +316,7 @@ extension ChatVC: PHPickerViewControllerDelegate {
                     guard let selectedImage = image as? UIImage else { return }
                     self.welcomeView.isHidden = !self.textView.text.isEmpty
                     self.viewModel.sendMessageWithImage(self.textView.text, image: selectedImage)
+                    self.textView.resignFirstResponder()
                     self.textView.text = nil
                     self.newChatButton?.isHidden = false
                     self.textViewDidChange(self.textView)
