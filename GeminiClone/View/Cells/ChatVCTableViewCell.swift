@@ -102,7 +102,7 @@ class ChatVCTableViewCell: UITableViewCell {
             messageLabel.textAlignment = .right
             profileImageView.isHidden = true
             messageBackgroundViewLeadingConstraint.isActive = false
-            messageBackgroundView.backgroundColor = UIColor.systemBlue
+            messageBackgroundView.backgroundColor = UIColor.blue
             messageLabel.textColor = .white
         } else {
             messageLabel.textAlignment = .left

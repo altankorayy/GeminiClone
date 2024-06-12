@@ -123,6 +123,7 @@ class ChatVC: UIViewController {
         view.backgroundColor = .systemBackground
         view.addSubviews(textView, tableView, welcomeView, buttonsStackView)
         textView.addSubviews(placeHolder)
+        welcomeView.alpha = 1
         
         let listButton = UIBarButtonItem(image: UIImage(systemName: "list.bullet"), style: .done, target: self, action: nil)
         listButton.tintColor = .label
@@ -137,6 +138,10 @@ class ChatVC: UIViewController {
         sentButton.addTarget(self, action: #selector(didTapSentButton), for: .touchUpInside)
         photoButton.addTarget(self, action: #selector(didTapPhotoButton), for: .touchUpInside)
         cameraButton.addTarget(self, action: #selector(didTapCameraButton), for: .touchUpInside)
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        tapGesture.delegate = self
+        view.addGestureRecognizer(tapGesture)
     }
 
     private func configureConstraints() {
@@ -168,9 +173,20 @@ class ChatVC: UIViewController {
     }
     
     @objc
+    private func dismissKeyboard() {
+        view.endEditing(true)
+    }
+    
+    private func showWelcomeView(_ show: Bool) {
+        UIView.animate(withDuration: 0.4) { [weak self] in
+            self?.welcomeView.alpha = show ? 0 : 1
+        }
+    }
+    
+    @objc
     private func didTapSentButton() {
         guard let text = textView.text, !text.isEmpty else { return }
-        welcomeView.isHidden = !text.isEmpty
+        showWelcomeView(!text.isEmpty)
         textView.resignFirstResponder()
         textView.text = nil
         
@@ -183,7 +199,7 @@ class ChatVC: UIViewController {
     
     @objc
     private func didTapNewChatButton() {
-        welcomeView.isHidden = false
+        showWelcomeView(false)
         messages.removeAll()
         tableView.reloadData()
     }
@@ -290,7 +306,7 @@ extension ChatVC: ChatViewModelDelegate {
 
 extension ChatVC: WelcomeViewDelegate {
     func getSelectedPrompt(_ prompt: ChatMessage) {
-        welcomeView.isHidden = true
+        showWelcomeView(true)
         reloadData()
         viewModel.sendMessage(prompt.message)
         newChatButton?.isHidden = false
@@ -314,7 +330,7 @@ extension ChatVC: PHPickerViewControllerDelegate {
                 
                 DispatchQueue.main.async {
                     guard let selectedImage = image as? UIImage else { return }
-                    self.welcomeView.isHidden = !self.textView.text.isEmpty
+                    self.showWelcomeView(!self.textView.text.isEmpty)
                     self.viewModel.sendMessageWithImage(self.textView.text, image: selectedImage)
                     self.textView.resignFirstResponder()
                     self.textView.text = nil
@@ -323,5 +339,14 @@ extension ChatVC: PHPickerViewControllerDelegate {
                 }
             }
         }
+    }
+}
+
+extension ChatVC: UIGestureRecognizerDelegate {
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+        if let view = touch.view, view.isDescendant(of: welcomeView.collectionView) {
+            return false
+        }
+        return true
     }
 }

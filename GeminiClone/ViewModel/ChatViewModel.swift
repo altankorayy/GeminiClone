@@ -16,7 +16,7 @@ protocol ChatViewModelDelegate: AnyObject {
 class ChatViewModel {
     
     weak var delegate: ChatViewModelDelegate?
-    private let model = GenerativeModel(name: "gemini-1.5-flash-latest", apiKey: APIKey.default)
+    private let model = GenerativeModel(name: "gemini-1.5-pro", apiKey: APIKey.default)
     
     func sendMessage(_ text: String) {
         let userMessage = ChatMessage(message: text, participant: .user)

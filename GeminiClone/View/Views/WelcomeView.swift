@@ -34,7 +34,7 @@ class WelcomeView: UIView {
         return label
     }()
     
-    private lazy var collectionView: UICollectionView = {
+    public lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         layout.itemSize = CGSize(width: 200, height: 200)
