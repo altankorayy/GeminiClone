@@ -194,21 +194,21 @@ class ChatVC: UIViewController {
     @objc
     private func didTapSentButton() {
         guard let text = textView.text, !text.isEmpty else { return }
-        showWelcomeView(!text.isEmpty)
+        showWelcomeView(with: !text.isEmpty)
         textView.resignFirstResponder()
         textView.text = nil
         
         // recall function to update placeholder visibility
         textViewDidChange(textView)
         
-        viewModel.sendMessage(text)
+        viewModel.sendMessage(with: text)
         newChatButton?.isHidden = false
     }
     
     @objc
     private func didTapNewChatButton() {
         newChatButton?.isHidden = true
-        showWelcomeView(false)
+        showWelcomeView(with: false)
         messages.removeAll()
         tableView.reloadData()
     }
@@ -234,7 +234,7 @@ class ChatVC: UIViewController {
         print("Camera button tapped.")
     }
     
-    private func showWelcomeView(_ show: Bool) {
+    private func showWelcomeView(with show: Bool) {
         UIView.animate(withDuration: 0.4) { [weak self] in
             guard let self else { return }
             self.welcomeView.alpha = show ? 0 : 1
@@ -294,10 +294,10 @@ extension ChatVC: UITableViewDelegate, UITableViewDataSource {
         let model = messages[indexPath.row]
         
         if model.pending && model.participant == .system {
-            cell.configure(ChatMessage(message: "Analiz ediliyor...", participant: .system))
+            cell.configure(with: ChatMessage(message: "Analiz ediliyor...", participant: .system))
             cell.messageLabel.startShimmering()
         } else {
-            cell.configure(model)
+            cell.configure(with: model)
             cell.messageLabel.stopShimmering()
         }
         
@@ -307,12 +307,12 @@ extension ChatVC: UITableViewDelegate, UITableViewDataSource {
 
 // MARK: - ChatViewModelDelegate
 extension ChatVC: ChatViewModelDelegate {
-    func getMessage(_ message: ChatMessage) {
+    func getMessage(with message: ChatMessage) {
         messages.append(message)
         reloadData()
     }
     
-    func updateLastMessage(_ message: ChatMessage) {
+    func updateLastMessage(with message: ChatMessage) {
         guard !messages.isEmpty else { return }
         messages[messages.count - 1] = message
         reloadData()
@@ -321,10 +321,10 @@ extension ChatVC: ChatViewModelDelegate {
 
 // MARK: - WelcomeViewDelegate
 extension ChatVC: WelcomeViewDelegate {
-    func getSelectedPrompt(_ prompt: ChatMessage) {
-        showWelcomeView(true)
+    func getSelectedPrompt(with prompt: ChatMessage) {
+        showWelcomeView(with: true)
         reloadData()
-        viewModel.sendMessage(prompt.message)
+        viewModel.sendMessage(with: prompt.message)
         newChatButton?.isHidden = false
     }
 }
@@ -347,8 +347,8 @@ extension ChatVC: PHPickerViewControllerDelegate {
                 
                 DispatchQueue.main.async {
                     guard let selectedImage = image as? UIImage else { return }
-                    self.showWelcomeView(!self.textView.text.isEmpty)
-                    self.viewModel.sendMessage(self.textView.text, image: selectedImage)
+                    self.showWelcomeView(with: !self.textView.text.isEmpty)
+                    self.viewModel.sendMessage(with: self.textView.text, image: selectedImage)
                     self.textView.resignFirstResponder()
                     self.textView.text = nil
                     self.newChatButton?.isHidden = false

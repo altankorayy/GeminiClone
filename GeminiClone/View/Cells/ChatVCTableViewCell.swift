@@ -48,7 +48,10 @@ class ChatVCTableViewCell: UITableViewCell {
     }()
     
     private var contentImageViewHeightConstraint: NSLayoutConstraint!
-    private var messageBackgroundViewLeadingConstraint: NSLayoutConstraint!
+    private var userMessageLeadingConstraint: NSLayoutConstraint!
+    private var userMessageTrailingConstraint: NSLayoutConstraint!
+    private var systemMessageLeadingConstraint: NSLayoutConstraint!
+    private var systemMessageTrailingConstraint: NSLayoutConstraint!
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -69,7 +72,10 @@ class ChatVCTableViewCell: UITableViewCell {
     
     private func configureConstraints() {
         contentImageViewHeightConstraint = contentImageView.heightAnchor.constraint(equalToConstant: 200)
-        messageBackgroundViewLeadingConstraint = messageBackgroundView.leadingAnchor.constraint(equalTo: profileImageView.trailingAnchor, constant: 8)
+        systemMessageLeadingConstraint = messageBackgroundView.leadingAnchor.constraint(equalTo: profileImageView.trailingAnchor, constant: 8)
+        systemMessageTrailingConstraint = messageBackgroundView.trailingAnchor.constraint(lessThanOrEqualTo: contentView.trailingAnchor, constant: -10)
+        userMessageLeadingConstraint = messageBackgroundView.leadingAnchor.constraint(greaterThanOrEqualTo: contentView.leadingAnchor, constant: 48)
+        userMessageTrailingConstraint = messageBackgroundView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10)
         
         NSLayoutConstraint.activate([
             profileImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 15),
@@ -78,8 +84,6 @@ class ChatVCTableViewCell: UITableViewCell {
             profileImageView.heightAnchor.constraint(equalToConstant: 30),
             
             messageBackgroundView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
-            messageBackgroundViewLeadingConstraint,
-            messageBackgroundView.trailingAnchor.constraint(lessThanOrEqualTo: contentView.trailingAnchor, constant: -10),
             
             messageLabel.topAnchor.constraint(equalTo: messageBackgroundView.topAnchor, constant: 10),
             messageLabel.leadingAnchor.constraint(equalTo: messageBackgroundView.leadingAnchor, constant: 10),
@@ -94,10 +98,17 @@ class ChatVCTableViewCell: UITableViewCell {
         ])
     }
     
-    public func configure(_ text: ChatMessage) {
+    public func configure(with text: ChatMessage) {
         configureMessageLabel(with: text)
         configureProfileImageView(for: text)
         configureContentImageView(with: text.image)
+        
+        layoutIfNeeded()
+        
+        if text.participant == .user {
+            let gradientImage = UIImage.gradientImage(bounds: messageBackgroundView.bounds, colors: [.systemBlue, .blue])
+            messageBackgroundView.backgroundColor = UIColor(patternImage: gradientImage)
+        }
     }
     
     private func configureMessageLabel(with text: ChatMessage) {
@@ -106,7 +117,6 @@ class ChatVCTableViewCell: UITableViewCell {
         
         if text.participant == .user {
             messageLabel.textAlignment = .right
-            messageBackgroundView.backgroundColor = UIColor.blue
             messageLabel.textColor = .white
         } else {
             messageLabel.textAlignment = .left
@@ -118,12 +128,19 @@ class ChatVCTableViewCell: UITableViewCell {
     private func configureProfileImageView(for text: ChatMessage) {
         if text.participant == .user {
             profileImageView.isHidden = true
-            messageBackgroundViewLeadingConstraint.isActive = false
+            userMessageLeadingConstraint.isActive = true
+            userMessageTrailingConstraint.isActive = true
+            systemMessageLeadingConstraint.isActive = false
+            systemMessageTrailingConstraint.isActive = false
         } else {
             profileImageView.isHidden = false
             profileImageView.image = UIImage(named: "geminiLogo")
-            messageBackgroundViewLeadingConstraint.isActive = true
+            userMessageLeadingConstraint.isActive = false
+            userMessageTrailingConstraint.isActive = false
+            systemMessageLeadingConstraint.isActive = true
+            systemMessageTrailingConstraint.isActive = true
         }
+        layoutIfNeeded()
     }
     
     private func configureContentImageView(with image: UIImage?) {

@@ -9,8 +9,8 @@ import UIKit
 import GoogleGenerativeAI
 
 protocol ChatViewModelDelegate: AnyObject {
-    func getMessage(_ message: ChatMessage)
-    func updateLastMessage(_ message: ChatMessage)
+    func getMessage(with message: ChatMessage)
+    func updateLastMessage(with message: ChatMessage)
 }
 
 class ChatViewModel {
@@ -18,7 +18,7 @@ class ChatViewModel {
     weak var delegate: ChatViewModelDelegate?
     private let model = GenerativeModel(name: "gemini-1.5-pro", apiKey: APIKey.default)
     
-    func sendMessage(_ text: String, image: UIImage? = nil) {
+    func sendMessage(with text: String, image: UIImage? = nil) {
         handleUserMessage(text: text, image: image)
         handlePendingMessage()
         
@@ -32,20 +32,20 @@ class ChatViewModel {
                 }
                 
                 guard let textResponse = response.text else { return }
-                delegate?.updateLastMessage(ChatMessage(message: textResponse, participant: .system))
+                delegate?.updateLastMessage(with: ChatMessage(message: textResponse, participant: .system))
             } catch {
-                delegate?.updateLastMessage(ChatMessage(message: error.localizedDescription, participant: .system))
+                delegate?.updateLastMessage(with: ChatMessage(message: error.localizedDescription, participant: .system))
             }
         }
     }
     
     private func handleUserMessage(text: String, image: UIImage?) {
         let userMessage = ChatMessage(message: text, image: image, participant: .user)
-        delegate?.getMessage(userMessage)
+        delegate?.getMessage(with: userMessage)
     }
     
     private func handlePendingMessage() {
         let pendingMessage = ChatMessage(message: "", participant: .system, pending: true)
-        delegate?.getMessage(pendingMessage)
+        delegate?.getMessage(with: pendingMessage)
     }
 }
