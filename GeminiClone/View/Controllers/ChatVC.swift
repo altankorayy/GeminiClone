@@ -83,18 +83,16 @@ class ChatVC: UIViewController {
         return stackView
     }()
     
-    var newChatButton: UIBarButtonItem?
-    
-    var textViewHeightConstraint: NSLayoutConstraint!
-    let welcomeView = WelcomeView()
-    
+    private var newChatButton: UIBarButtonItem?
+    private var textViewHeightConstraint: NSLayoutConstraint!
     private var messages = [ChatMessage]()
-    
     private var viewModel: ChatViewModel
+    private var welcomeView = WelcomeView()
     
     init(viewModel: ChatViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
+        
         viewModel.delegate = self
         welcomeView.delegate = self
     }
@@ -108,7 +106,6 @@ class ChatVC: UIViewController {
         
         configureView()
         configureConstraints()
-        configureNavigationBar()
     }
     
     override func viewDidLayoutSubviews() {
@@ -125,23 +122,10 @@ class ChatVC: UIViewController {
         textView.addSubviews(placeHolder)
         welcomeView.alpha = 1
         
-        let listButton = UIBarButtonItem(image: UIImage(systemName: "list.bullet"), style: .done, target: self, action: nil)
-        listButton.tintColor = .label
-        
-        newChatButton = UIBarButtonItem(image: UIImage(systemName: "square.and.pencil"), style: .done, target: self, action: #selector(didTapNewChatButton))
-        newChatButton?.tintColor = .label
-        newChatButton?.isHidden = true
-        
-        navigationItem.leftBarButtonItem = listButton
-        navigationItem.rightBarButtonItem = newChatButton
-        
-        sentButton.addTarget(self, action: #selector(didTapSentButton), for: .touchUpInside)
-        photoButton.addTarget(self, action: #selector(didTapPhotoButton), for: .touchUpInside)
-        cameraButton.addTarget(self, action: #selector(didTapCameraButton), for: .touchUpInside)
-        
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
-        tapGesture.delegate = self
-        view.addGestureRecognizer(tapGesture)
+        configureNavigation()
+        configureNavigationBarButtons()
+        configureButtons()
+        configureGesture()
     }
 
     private func configureConstraints() {
@@ -172,15 +156,39 @@ class ChatVC: UIViewController {
         ])
     }
     
+    private func configureNavigationBarButtons() {
+        let listButton = UIBarButtonItem(image: UIImage(systemName: "list.bullet"), style: .done, target: self, action: nil)
+        listButton.tintColor = .label
+        
+        newChatButton = UIBarButtonItem(image: UIImage(systemName: "square.and.pencil"), style: .done, target: self, action: #selector(didTapNewChatButton))
+        newChatButton?.tintColor = .label
+        newChatButton?.isHidden = true
+        
+        navigationItem.leftBarButtonItem = listButton
+        navigationItem.rightBarButtonItem = newChatButton
+    }
+    
+    private func configureButtons() {
+        sentButton.addTarget(self, action: #selector(didTapSentButton), for: .touchUpInside)
+        photoButton.addTarget(self, action: #selector(didTapPhotoButton), for: .touchUpInside)
+        cameraButton.addTarget(self, action: #selector(didTapCameraButton), for: .touchUpInside)
+    }
+    
+    private func configureGesture() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        tapGesture.delegate = self
+        view.addGestureRecognizer(tapGesture)
+    }
+
+    private func configureNavigation() {
+        navigationController?.navigationBar.isTranslucent = true
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        navigationController?.navigationBar.shadowImage = UIImage()
+    }
+    
     @objc
     private func dismissKeyboard() {
         view.endEditing(true)
-    }
-    
-    private func showWelcomeView(_ show: Bool) {
-        UIView.animate(withDuration: 0.4) { [weak self] in
-            self?.welcomeView.alpha = show ? 0 : 1
-        }
     }
     
     @objc
@@ -199,6 +207,7 @@ class ChatVC: UIViewController {
     
     @objc
     private func didTapNewChatButton() {
+        newChatButton?.isHidden = true
         showWelcomeView(false)
         messages.removeAll()
         tableView.reloadData()
@@ -206,40 +215,43 @@ class ChatVC: UIViewController {
     
     @objc
     private func didTapPhotoButton() {
-        if textView.text.isEmpty {
+        guard !textView.text.isEmpty else {
             showAlert(title: "Error", message: "Please enter a prompt before selecting image.")
-        } else {
-            var pickerConfiguration = PHPickerConfiguration()
-            pickerConfiguration.selectionLimit = 1
-            pickerConfiguration.filter = .images
-            let picker = PHPickerViewController(configuration: pickerConfiguration)
-            picker.isEditing = true
-            picker.delegate = self
-            present(picker, animated: true)
+            return
         }
+        
+        var pickerConfiguration = PHPickerConfiguration()
+        pickerConfiguration.selectionLimit = 1
+        pickerConfiguration.filter = .images
+        let picker = PHPickerViewController(configuration: pickerConfiguration)
+        picker.isEditing = true
+        picker.delegate = self
+        present(picker, animated: true)
     }
     
     @objc
     private func didTapCameraButton() {
-        print("tapped")
+        print("Camera button tapped.")
+    }
+    
+    private func showWelcomeView(_ show: Bool) {
+        UIView.animate(withDuration: 0.4) { [weak self] in
+            guard let self else { return }
+            self.welcomeView.alpha = show ? 0 : 1
+        }
     }
     
     private func reloadData() {
         DispatchQueue.main.async { [weak self] in
-            self?.tableView.reloadData()
-            self?.scrollToRow()
+            guard let self else { return }
+            self.tableView.reloadData()
+            self.scrollToRow()
         }
     }
     
     private func scrollToRow() {
-        let newIndexPath = IndexPath(row: self.messages.count - 1, section: 0)
+        let newIndexPath = IndexPath(row: messages.count - 1, section: 0)
         tableView.scrollToRow(at: newIndexPath, at: .top, animated: true)
-    }
-    
-    private func configureNavigationBar() {
-        navigationController?.navigationBar.isTranslucent = true
-        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
-        navigationController?.navigationBar.shadowImage = UIImage()
     }
     
     private func adjustTextFieldHeight() {
@@ -262,6 +274,7 @@ class ChatVC: UIViewController {
     }
 }
 
+// MARK: - UITextView
 extension ChatVC: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
         placeHolder.isHidden = !textView.text.isEmpty
@@ -270,6 +283,7 @@ extension ChatVC: UITextViewDelegate {
     }
 }
 
+// MARK: - UITableView
 extension ChatVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return messages.count
@@ -291,19 +305,21 @@ extension ChatVC: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
+// MARK: - ChatViewModelDelegate
 extension ChatVC: ChatViewModelDelegate {
     func getMessage(_ message: ChatMessage) {
-        self.messages.append(message)
+        messages.append(message)
         reloadData()
     }
     
     func updateLastMessage(_ message: ChatMessage) {
-        guard !self.messages.isEmpty else { return }
-        self.messages[self.messages.count - 1] = message
+        guard !messages.isEmpty else { return }
+        messages[messages.count - 1] = message
         reloadData()
     }
 }
 
+// MARK: - WelcomeViewDelegate
 extension ChatVC: WelcomeViewDelegate {
     func getSelectedPrompt(_ prompt: ChatMessage) {
         showWelcomeView(true)
@@ -313,6 +329,7 @@ extension ChatVC: WelcomeViewDelegate {
     }
 }
 
+// MARK: - PHPickerViewController
 extension ChatVC: PHPickerViewControllerDelegate {
     func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
         picker.dismiss(animated: true)
@@ -331,7 +348,7 @@ extension ChatVC: PHPickerViewControllerDelegate {
                 DispatchQueue.main.async {
                     guard let selectedImage = image as? UIImage else { return }
                     self.showWelcomeView(!self.textView.text.isEmpty)
-                    self.viewModel.sendMessageWithImage(self.textView.text, image: selectedImage)
+                    self.viewModel.sendMessage(self.textView.text, image: selectedImage)
                     self.textView.resignFirstResponder()
                     self.textView.text = nil
                     self.newChatButton?.isHidden = false

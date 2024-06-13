@@ -18,16 +18,19 @@ class ChatViewModel {
     weak var delegate: ChatViewModelDelegate?
     private let model = GenerativeModel(name: "gemini-1.5-pro", apiKey: APIKey.default)
     
-    func sendMessage(_ text: String) {
-        let userMessage = ChatMessage(message: text, participant: .user)
-        delegate?.getMessage(userMessage)
-        
-        let pendingMessage = ChatMessage(message: "", participant: .system, pending: true)
-        delegate?.getMessage(pendingMessage)
+    func sendMessage(_ text: String, image: UIImage? = nil) {
+        handleUserMessage(text: text, image: image)
+        handlePendingMessage()
         
         Task {
             do {
-                let response = try await model.generateContent(text)
+                let response: GenerateContentResponse
+                if let image = image {
+                    response = try await model.generateContent(text, image)
+                } else {
+                    response = try await model.generateContent(text)
+                }
+                
                 guard let textResponse = response.text else { return }
                 delegate?.updateLastMessage(ChatMessage(message: textResponse, participant: .system))
             } catch {
@@ -36,21 +39,13 @@ class ChatViewModel {
         }
     }
     
-    func sendMessageWithImage(_ text: String, image: UIImage) {
+    private func handleUserMessage(text: String, image: UIImage?) {
         let userMessage = ChatMessage(message: text, image: image, participant: .user)
         delegate?.getMessage(userMessage)
-        
+    }
+    
+    private func handlePendingMessage() {
         let pendingMessage = ChatMessage(message: "", participant: .system, pending: true)
         delegate?.getMessage(pendingMessage)
-        
-        Task {
-            do {
-                let response = try await model.generateContent(text, image)
-                guard let textResponse = response.text else { return }
-                delegate?.updateLastMessage(ChatMessage(message: textResponse, participant: .system))
-            } catch {
-                delegate?.updateLastMessage(ChatMessage(message: error.localizedDescription, participant: .system))
-            }
-        }
     }
 }

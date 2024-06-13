@@ -95,24 +95,39 @@ class ChatVCTableViewCell: UITableViewCell {
     }
     
     public func configure(_ text: ChatMessage) {
+        configureMessageLabel(with: text)
+        configureProfileImageView(for: text)
+        configureContentImageView(with: text.image)
+    }
+    
+    private func configureMessageLabel(with text: ChatMessage) {
         let markdownText = SwiftyMarkdown(string: text.message)
         messageLabel.attributedText = markdownText.attributedString()
         
         if text.participant == .user {
             messageLabel.textAlignment = .right
-            profileImageView.isHidden = true
-            messageBackgroundViewLeadingConstraint.isActive = false
             messageBackgroundView.backgroundColor = UIColor.blue
             messageLabel.textColor = .white
         } else {
             messageLabel.textAlignment = .left
+            messageBackgroundView.backgroundColor = UIColor.secondarySystemBackground
+            messageLabel.textColor = .label
+        }
+    }
+    
+    private func configureProfileImageView(for text: ChatMessage) {
+        if text.participant == .user {
+            profileImageView.isHidden = true
+            messageBackgroundViewLeadingConstraint.isActive = false
+        } else {
             profileImageView.isHidden = false
             profileImageView.image = UIImage(named: "geminiLogo")
             messageBackgroundViewLeadingConstraint.isActive = true
-            messageBackgroundView.backgroundColor = UIColor.secondarySystemBackground
         }
-        
-        if let image = text.image {
+    }
+    
+    private func configureContentImageView(with image: UIImage?) {
+        if let image = image {
             contentImageView.image = image
             contentImageView.isHidden = false
             contentImageViewHeightConstraint.constant = 200
@@ -123,4 +138,5 @@ class ChatVCTableViewCell: UITableViewCell {
         contentView.layoutIfNeeded()
         contentView.setNeedsLayout()
     }
+    
 }
