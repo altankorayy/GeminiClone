@@ -25,6 +25,8 @@
 		E1E385662C17566B00C3028C /* AlertVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1E385652C17566B00C3028C /* AlertVC.swift */; };
 		E1E385682C17570000C3028C /* AlertContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1E385672C17570000C3028C /* AlertContainerView.swift */; };
 		E1E3A1232C14D3C50093CCB3 /* SwiftyMarkdown in Frameworks */ = {isa = PBXBuildFile; productRef = E1E3A1222C14D3C50093CCB3 /* SwiftyMarkdown */; };
+		E1E43AF42C1DBAD2002BEB70 /* UserChatTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1E43AF32C1DBAD2002BEB70 /* UserChatTableViewCell.swift */; };
+		E1E43AF62C1DBAE3002BEB70 /* SystemChatTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1E43AF52C1DBAE3002BEB70 /* SystemChatTableViewCell.swift */; };
 		E1F9E6542C0106350076D633 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F9E6532C0106350076D633 /* WelcomeView.swift */; };
 		E1F9E6592C010D000076D633 /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F9E6582C010D000076D633 /* UIImage+Extension.swift */; };
 		E1F9E65B2C010FF80076D633 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F9E65A2C010FF80076D633 /* UIView+Extension.swift */; };
@@ -71,6 +73,8 @@
 		E1E385632C1754D100C3028C /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
 		E1E385652C17566B00C3028C /* AlertVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertVC.swift; sourceTree = "<group>"; };
 		E1E385672C17570000C3028C /* AlertContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertContainerView.swift; sourceTree = "<group>"; };
+		E1E43AF32C1DBAD2002BEB70 /* UserChatTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserChatTableViewCell.swift; sourceTree = "<group>"; };
+		E1E43AF52C1DBAE3002BEB70 /* SystemChatTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemChatTableViewCell.swift; sourceTree = "<group>"; };
 		E1F9E6532C0106350076D633 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
 		E1F9E6582C010D000076D633 /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
 		E1F9E65A2C010FF80076D633 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
@@ -217,6 +221,8 @@
 		E1A5CDCF2BEBFF0C0030E31C /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				E1E43AF32C1DBAD2002BEB70 /* UserChatTableViewCell.swift */,
+				E1E43AF52C1DBAE3002BEB70 /* SystemChatTableViewCell.swift */,
 				E1A5CDD02BEBFF2D0030E31C /* ChatVCTableViewCell.swift */,
 				E1F9E65C2C01127F0076D633 /* WelcomeViewCollectionViewCell.swift */,
 			);
@@ -383,6 +389,7 @@
 			files = (
 				E1F9E6542C0106350076D633 /* WelcomeView.swift in Sources */,
 				E1F9E65B2C010FF80076D633 /* UIView+Extension.swift in Sources */,
+				E1E43AF42C1DBAD2002BEB70 /* UserChatTableViewCell.swift in Sources */,
 				E1A5CDD12BEBFF2D0030E31C /* ChatVCTableViewCell.swift in Sources */,
 				E1E385642C1754D100C3028C /* UIViewController+Extension.swift in Sources */,
 				E105EED62BEA9BB600A9257F /* ChatVC.swift in Sources */,
@@ -392,6 +399,7 @@
 				E1F9E6592C010D000076D633 /* UIImage+Extension.swift in Sources */,
 				E105EED22BEA9BB600A9257F /* AppDelegate.swift in Sources */,
 				E1E385662C17566B00C3028C /* AlertVC.swift in Sources */,
+				E1E43AF62C1DBAE3002BEB70 /* SystemChatTableViewCell.swift in Sources */,
 				E105EED42BEA9BB600A9257F /* SceneDelegate.swift in Sources */,
 				E1472A1E2C0E4D2F006AABF8 /* APIKey.swift in Sources */,
 				E14501E52C0E68C700F2D8E3 /* ChatViewModel.swift in Sources */,
@@ -504,6 +512,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -559,6 +568,7 @@
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_VERSION = 5.0;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;

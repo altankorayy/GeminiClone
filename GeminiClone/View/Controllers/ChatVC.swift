@@ -37,10 +37,10 @@ class ChatVC: UIViewController {
     private lazy var tableView: UITableView = {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.register(ChatVCTableViewCell.self, forCellReuseIdentifier: ChatVCTableViewCell.identifier)
+        tableView.register(UserChatTableViewCell.self, forCellReuseIdentifier: UserChatTableViewCell.identifier)
+        tableView.register(SystemChatTableViewCell.self, forCellReuseIdentifier: SystemChatTableViewCell.identifier)
         tableView.separatorStyle = .none
         tableView.showsVerticalScrollIndicator = false
-        tableView.estimatedRowHeight = 200
         tableView.rowHeight = UITableView.automaticDimension
         tableView.delegate = self
         tableView.dataSource = self
@@ -194,9 +194,9 @@ class ChatVC: UIViewController {
     @objc
     private func didTapSentButton() {
         guard let text = textView.text, !text.isEmpty else { return }
+        textView.text = nil
         showWelcomeView(with: !text.isEmpty)
         textView.resignFirstResponder()
-        textView.text = nil
         
         // recall function to update placeholder visibility
         textViewDidChange(textView)
@@ -290,18 +290,33 @@ extension ChatVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: ChatVCTableViewCell.identifier, for: indexPath) as? ChatVCTableViewCell else { return UITableViewCell() }
         let model = messages[indexPath.row]
         
-        if model.pending && model.participant == .system {
-            cell.configure(with: ChatMessage(message: "Analiz ediliyor...", participant: .system))
-            cell.messageLabel.startShimmering()
+        if model.participant == .user {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: UserChatTableViewCell.identifier, for: indexPath) as? UserChatTableViewCell else { return UITableViewCell() }
+            
+            if model.pending {
+                cell.configure(with: ChatMessage(message: "Analiz ediliyor...", participant: .user))
+                cell.messageLabel.startShimmering()
+            } else {
+                cell.configure(with: model)
+                cell.messageLabel.stopShimmering()
+            }
+            
+            return cell
         } else {
-            cell.configure(with: model)
-            cell.messageLabel.stopShimmering()
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: SystemChatTableViewCell.identifier, for: indexPath) as? SystemChatTableViewCell else { return UITableViewCell() }
+            
+            if model.pending {
+                cell.configure(with: ChatMessage(message: "Analiz ediliyor...", participant: .system))
+                cell.messageLabel.startShimmering()
+            } else {
+                cell.configure(with: model)
+                cell.messageLabel.stopShimmering()
+            }
+            
+            return cell
         }
-        
-        return cell
     }
 }
 

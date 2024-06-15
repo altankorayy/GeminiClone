@@ -26,7 +26,7 @@ class ChatVCTableViewCell: UITableViewCell {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = UIColor.systemBlue.withAlphaComponent(0.8)
-        view.layer.cornerRadius = 10
+        view.layer.cornerRadius = 17
         return view
     }()
     
@@ -62,6 +62,15 @@ class ChatVCTableViewCell: UITableViewCell {
     
     required init?(coder: NSCoder) {
         fatalError()
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        profileImageView.image = nil
+        messageLabel.text = nil
+        messageLabel.attributedText = nil
+        contentImageView.image = nil
     }
     
     private func configureView() {
