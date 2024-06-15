@@ -27,6 +27,7 @@
 		E1E3A1232C14D3C50093CCB3 /* SwiftyMarkdown in Frameworks */ = {isa = PBXBuildFile; productRef = E1E3A1222C14D3C50093CCB3 /* SwiftyMarkdown */; };
 		E1E43AF42C1DBAD2002BEB70 /* UserChatTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1E43AF32C1DBAD2002BEB70 /* UserChatTableViewCell.swift */; };
 		E1E43AF62C1DBAE3002BEB70 /* SystemChatTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1E43AF52C1DBAE3002BEB70 /* SystemChatTableViewCell.swift */; };
+		E1E43AF82C1DC7F7002BEB70 /* HapticsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1E43AF72C1DC7F7002BEB70 /* HapticsManager.swift */; };
 		E1F9E6542C0106350076D633 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F9E6532C0106350076D633 /* WelcomeView.swift */; };
 		E1F9E6592C010D000076D633 /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F9E6582C010D000076D633 /* UIImage+Extension.swift */; };
 		E1F9E65B2C010FF80076D633 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F9E65A2C010FF80076D633 /* UIView+Extension.swift */; };
@@ -75,6 +76,7 @@
 		E1E385672C17570000C3028C /* AlertContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertContainerView.swift; sourceTree = "<group>"; };
 		E1E43AF32C1DBAD2002BEB70 /* UserChatTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserChatTableViewCell.swift; sourceTree = "<group>"; };
 		E1E43AF52C1DBAE3002BEB70 /* SystemChatTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemChatTableViewCell.swift; sourceTree = "<group>"; };
+		E1E43AF72C1DC7F7002BEB70 /* HapticsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticsManager.swift; sourceTree = "<group>"; };
 		E1F9E6532C0106350076D633 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
 		E1F9E6582C010D000076D633 /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
 		E1F9E65A2C010FF80076D633 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
@@ -166,6 +168,7 @@
 			isa = PBXGroup;
 			children = (
 				E1F9E6602C0116000076D633 /* PromptManager.swift */,
+				E1E43AF72C1DC7F7002BEB70 /* HapticsManager.swift */,
 				E1472A1D2C0E4D2F006AABF8 /* APIKey.swift */,
 			);
 			path = Manager;
@@ -404,6 +407,7 @@
 				E1472A1E2C0E4D2F006AABF8 /* APIKey.swift in Sources */,
 				E14501E52C0E68C700F2D8E3 /* ChatViewModel.swift in Sources */,
 				E17C6FBB2C0F65F900456D9F /* ChatModel.swift in Sources */,
+				E1E43AF82C1DC7F7002BEB70 /* HapticsManager.swift in Sources */,
 				E1F9E6612C0116000076D633 /* PromptManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

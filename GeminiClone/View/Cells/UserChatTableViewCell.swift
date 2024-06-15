@@ -51,6 +51,15 @@ class UserChatTableViewCell: UITableViewCell {
         fatalError()
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        let gradientImage = UIImage.gradientImage(bounds: messageBackgroundView.bounds, colors: [.systemBlue, .blue])
+        messageBackgroundView.backgroundColor = UIColor(patternImage: gradientImage)
+        
+        messageLabel.textColor = .white
+    }
+    
     private func configureView() {
         selectionStyle = .none
         contentView.addSubviews(messageBackgroundView, contentImageView)
@@ -81,10 +90,7 @@ class UserChatTableViewCell: UITableViewCell {
         let markdownText = SwiftyMarkdown(string: text.message)
         messageLabel.attributedText = markdownText.attributedString()
         
-        let gradientImage = UIImage.gradientImage(bounds: messageBackgroundView.bounds, colors: [.systemBlue, .blue])
-        messageBackgroundView.backgroundColor = UIColor(patternImage: gradientImage)
-        
-        messageLabel.textColor = .white
+        HapticsManager.shared.vibrate()
         
         if let image = text.image {
             contentImageView.image = image

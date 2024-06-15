@@ -52,14 +52,16 @@ class SystemChatTableViewCell: UITableViewCell {
         fatalError()
     }
     
-   
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        messageBackgroundView.backgroundColor = UIColor.secondarySystemBackground
+    }
     
     private func configureView() {
         contentView.addSubviews(profileImageView, messageBackgroundView)
         messageBackgroundView.addSubview(messageLabel)
         selectionStyle = .none
-        
-        messageBackgroundView.backgroundColor = UIColor.secondarySystemBackground
     }
     
     private func configureConstraints() {
@@ -84,5 +86,7 @@ class SystemChatTableViewCell: UITableViewCell {
     public func configure(with text: ChatMessage) {
         let markdownText = SwiftyMarkdown(string: text.message)
         messageLabel.attributedText = markdownText.attributedString()
+        
+        HapticsManager.shared.vibrate()
     }
 }
