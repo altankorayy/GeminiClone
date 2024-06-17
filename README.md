@@ -1,6 +1,6 @@
 # GeminiClone
 
-Gemini AI mobile app. Supports both text and image prompt and Gemini 1.5 Pro and Gemini 1.5 Flash modals.
+Gemini AI mobile app. Supports both text and image prompt. Gemini 1.5 Pro and 1.5 Flash available.
 
 <div class="row">
   <img src="https://github.com/altankorayy/GeminiClone/assets/67483357/c6e0cda9-d1ad-499f-a020-a1faea20cde6" width="250" height="500" class="col-md-6">
