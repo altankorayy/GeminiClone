@@ -1,7 +1,7 @@
 # GeminiClone
 
 <div class="row">
-  <img src="https://github.com/altankorayy/GeminiClone/assets/67483357/c6e0cda9-d1ad-499f-a020-a1faea20cde6" width="250" height="500" class="col-md-6">
+  <img src="https://github.com/altankorayy/GeminiClone/assets/67483357/c6e0cda9-d1ad-499f-a020-a1faea20cde6" width="250" height="480" class="col-md-6">
 </div>
 
 <h2>💖 Support Me</h2>
