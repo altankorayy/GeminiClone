@@ -26,4 +26,5 @@
 <div class="row">
   <img src="https://github.com/altankorayy/GeminiClone/assets/67483357/8e4f1c8a-cdfb-44bf-ba79-4301a978a40f" width="200" height="400" class="col-md-6">
   <img src="https://github.com/altankorayy/GeminiClone/assets/67483357/cda34354-05c6-4c58-8b32-10efd909ecec" width="200" height="400" class="col-md-6">
+  <img src="https://github.com/altankorayy/GeminiClone/assets/67483357/9c8999c0-240d-4ca1-b5e9-1c71de7e5505" width="200" height="400" class="col-md-6">
 </div>
