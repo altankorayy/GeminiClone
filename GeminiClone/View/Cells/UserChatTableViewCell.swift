@@ -34,7 +34,7 @@ class UserChatTableViewCell: UITableViewCell {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFill
         imageView.layer.masksToBounds = true
-        imageView.layer.cornerRadius = 10
+        imageView.layer.cornerRadius = 12
         return imageView
     }()
     

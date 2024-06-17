@@ -66,7 +66,7 @@ class SystemChatTableViewCell: UITableViewCell {
     
     private func configureConstraints() {
         NSLayoutConstraint.activate([
-            profileImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 15),
+            profileImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
             profileImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
             profileImageView.widthAnchor.constraint(equalToConstant: 30),
             profileImageView.heightAnchor.constraint(equalToConstant: 30),
@@ -74,7 +74,7 @@ class SystemChatTableViewCell: UITableViewCell {
             messageBackgroundView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
             messageBackgroundView.leadingAnchor.constraint(equalTo: profileImageView.trailingAnchor, constant: 8),
             messageBackgroundView.trailingAnchor.constraint(lessThanOrEqualTo: contentView.trailingAnchor, constant: -10),
-            messageBackgroundView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10),
+            messageBackgroundView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             
             messageLabel.topAnchor.constraint(equalTo: messageBackgroundView.topAnchor, constant: 10),
             messageLabel.leadingAnchor.constraint(equalTo: messageBackgroundView.leadingAnchor, constant: 10),
