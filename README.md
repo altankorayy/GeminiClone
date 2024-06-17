@@ -11,7 +11,16 @@
   </a>
 
 ## Tech Used
-* 
+* UIKit with no Storyboard
+* MVVM Architecture
+* Animations and effects
+* Haptic feedback
+* Custom views
+* Dynamic TextView
+* Separate custom TableView cells
+* Dynamic constraints
+* Concurrency
+* And more...
 
 ## API
 * ai.google.dev
